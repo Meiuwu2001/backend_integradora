@@ -7,7 +7,7 @@ const app = express();
 
 app.use(express.json());
 
-app.use("/api/contactus", contactUs);
+app.use("/api", contactUs);
 
 app.use(bodyParser.json()); // Parsear JSON
 app.use("/api/auth", authRoutes); // Enlazar rutas de autenticación
