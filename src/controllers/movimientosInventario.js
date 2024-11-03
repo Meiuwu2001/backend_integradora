@@ -12,7 +12,7 @@ const getMovimientos_inventario = async (req, res) => {
   }
 };
 
-const createMovimientosInvetario = async (req, res) => {
+const createMovimientosInventario = async (req, res) => {
   try {
     const db = await connect();
     await db.query("INSERT INTO movimientos_inventario SET ?", [req.body]);
@@ -65,7 +65,7 @@ const deleteMovimiento = async (req, res) => {
 };
 module.exports = {
   getMovimientos_inventario,
-  createMovimientosInvetario,
+  createMovimientosInventario,
   getMovimientoInventarioById,
   updateMovimientoInventario,
   deleteMovimiento,
