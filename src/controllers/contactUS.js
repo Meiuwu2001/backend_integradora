@@ -1,7 +1,6 @@
-const connect = require("../config/db");
+import connect from "../config/db.js";
 
-
-const getContactUS = async (req, res) => {
+export const getContactUS = async (req, res) => {
   try {
     const db = await connect();
     const [result] = await db.query("SELECT * FROM contactus;");
@@ -12,7 +11,7 @@ const getContactUS = async (req, res) => {
   }
 };
 
-const createContactUS = async (req, res) => {
+export const createContactUS = async (req, res) => {
   try {
     const db = await connect();
     await db.query("INSERT INTO contactus SET ?", [req.body]);
@@ -23,12 +22,13 @@ const createContactUS = async (req, res) => {
   }
 };
 
-const getContactUSById = async (req, res) => {
+export const getContactUSById = async (req, res) => {
   try {
     const db = await connect();
-    const [result] = await db.query("SELECT * FROM contactus WHERE IdContactUS =?", [
-      req.params.id,
-    ]);
+    const [result] = await db.query(
+      "SELECT * FROM contactus WHERE IdContactUS =?",
+      [req.params.id]
+    );
     if (!result.length) {
       return res.status(404).json({ error: "Contact not found" });
     }
@@ -39,7 +39,7 @@ const getContactUSById = async (req, res) => {
   }
 };
 
-const updateContactUS = async (req, res) => {
+export const updateContactUS = async (req, res) => {
   try {
     const db = await connect();
     await db.query("UPDATE contactus SET? WHERE IdContactUS =?", [
@@ -53,20 +53,15 @@ const updateContactUS = async (req, res) => {
   }
 };
 
-const deleteContactUS = async (req, res) => {
+export const deleteContactUS = async (req, res) => {
   try {
     const db = await connect();
-    await db.query("DELETE FROM contactus WHERE IdContactUS =?", [req.params.id]);
+    await db.query("DELETE FROM contactus WHERE IdContactUS =?", [
+      req.params.id,
+    ]);
     res.json({ status: "ok" });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "An error occurred while deleting data" });
   }
-};
-module.exports = {
-  getContactUS,
-  createContactUS,
-  getContactUSById,
-  updateContactUS,
-  deleteContactUS,
 };

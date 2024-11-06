@@ -1,5 +1,5 @@
-const express = require("express")
-const {getUbicacion, createUbicacion, getUbicacionById, updateUbicacion, deleteUbicacion} = require("../controllers/ubicacion");
+import express from  "express";
+import {getUbicacion, createUbicacion, getUbicacionById, updateUbicacion, deleteUbicacion} from "../controllers/ubicaciones.js";
 
 const router = express.Router();
 
@@ -10,4 +10,4 @@ router.put("/ubicacion/:id", updateUbicacion)
 router.delete("/ubicacion/:id", deleteUbicacion)
 
 
-module.exports = router;
+export default router;  // Exportación por defecto

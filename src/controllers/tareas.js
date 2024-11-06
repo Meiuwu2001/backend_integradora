@@ -1,7 +1,7 @@
-const connect = require("../config/db");
+import connect from "../config/db.js";
 
 
-const getTarea = async (req, res) => {
+export const getTarea = async (req, res) => {
   try {
     const db = await connect();
     const [result] = await db.query("SELECT * FROM tareas;");
@@ -12,7 +12,7 @@ const getTarea = async (req, res) => {
   }
 };
 
-const createTarea = async (req, res) => {
+export const createTarea = async (req, res) => {
   try {
     const db = await connect();
     await db.query("INSERT INTO tareas SET ?", [req.body]);
@@ -23,7 +23,7 @@ const createTarea = async (req, res) => {
   }
 };
 
-const getTareaById = async (req, res) => {
+export const getTareaById = async (req, res) => {
   try {
     const db = await connect();
     const [result] = await db.query("SELECT * FROM Tarea WHERE idTareas =?", [
@@ -39,7 +39,7 @@ const getTareaById = async (req, res) => {
   }
 };
 
-const updateTarea = async (req, res) => {
+export const updateTarea = async (req, res) => {
   try {
     const db = await connect();
     await db.query("UPDATE Tarea SET? WHERE idTareas =?", [
@@ -53,7 +53,7 @@ const updateTarea = async (req, res) => {
   }
 };
 
-const deleteTarea = async (req, res) => {
+export const deleteTarea = async (req, res) => {
   try {
     const db = await connect();
     await db.query("DELETE FROM tareas WHERE idTareas =?", [req.params.id]);
@@ -63,10 +63,4 @@ const deleteTarea = async (req, res) => {
     res.status(500).json({ error: "An error occurred while deleting data" });
   }
 };
-module.exports = {
-  getTarea,
-  createTarea,
-  getTareaById,
-  updateTarea,
-  deleteTarea,
-};
+

@@ -1,7 +1,7 @@
-const connect = require("../config/db");
+import connect from "../config/db.js"; // Importamos la conexión
 
 
-const getEquipo = async (req, res) => {
+export const getEquipo = async (req, res) => {
   try {
     const db = await connect();
     const [result] = await db.query("SELECT * FROM equipos;");
@@ -12,7 +12,7 @@ const getEquipo = async (req, res) => {
   }
 };
 
-const createEquipo = async (req, res) => {
+export const createEquipo = async (req, res) => {
   try {
     const db = await connect();
     await db.query("INSERT INTO equipos SET ?", [req.body]);
@@ -23,7 +23,7 @@ const createEquipo = async (req, res) => {
   }
 };
 
-const getEquipoById = async (req, res) => {
+export const getEquipoById = async (req, res) => {
   try {
     const db = await connect();
     const [result] = await db.query("SELECT * FROM equipos WHERE idEquipos =?", [
@@ -39,7 +39,7 @@ const getEquipoById = async (req, res) => {
   }
 };
 
-const updateEquipo = async (req, res) => {
+export const updateEquipo = async (req, res) => {
   try {
     const db = await connect();
     await db.query("UPDATE equipos SET? WHERE idEquipos =?", [
@@ -53,7 +53,7 @@ const updateEquipo = async (req, res) => {
   }
 };
 
-const deleteEquipo = async (req, res) => {
+export const deleteEquipo = async (req, res) => {
   try {
     const db = await connect();
     await db.query("DELETE FROM equipos WHERE idEquipos =?", [req.params.id]);
@@ -63,10 +63,4 @@ const deleteEquipo = async (req, res) => {
     res.status(500).json({ error: "An error occurred while deleting data" });
   }
 };
-module.exports = {
-  getEquipo,
-  createEquipo,
-  getEquipoById,
-  updateEquipo,
-  deleteEquipo,
-};
+

@@ -1,7 +1,7 @@
-const connect = require("../config/db");
+import connect from "../config/db.js";
 
 
-const getMovimientos_inventario = async (req, res) => {
+export const getMovimientos_inventario = async (req, res) => {
   try {
     const db = await connect();
     const [result] = await db.query("SELECT * FROM movimientos_inventario;");
@@ -12,7 +12,7 @@ const getMovimientos_inventario = async (req, res) => {
   }
 };
 
-const createMovimientosInventario = async (req, res) => {
+export const createMovimientosInventario = async (req, res) => {
   try {
     const db = await connect();
     await db.query("INSERT INTO movimientos_inventario SET ?", [req.body]);
@@ -23,7 +23,7 @@ const createMovimientosInventario = async (req, res) => {
   }
 };
 
-const getMovimientoInventarioById = async (req, res) => {
+export const getMovimientoInventarioById = async (req, res) => {
   try {
     const db = await connect();
     const [result] = await db.query("SELECT * FROM movimientos_inventario WHERE idMovimiento =?", [
@@ -39,7 +39,7 @@ const getMovimientoInventarioById = async (req, res) => {
   }
 };
 
-const updateMovimientoInventario = async (req, res) => {
+export const updateMovimientoInventario = async (req, res) => {
   try {
     const db = await connect();
     await db.query("UPDATE movimiento_inventario SET? WHERE idMovimiento =?", [
@@ -53,7 +53,7 @@ const updateMovimientoInventario = async (req, res) => {
   }
 };
 
-const deleteMovimiento = async (req, res) => {
+export const deleteMovimiento = async (req, res) => {
   try {
     const db = await connect();
     await db.query("DELETE FROM movimiento_inventario WHERE idMovimiento =?", [req.params.id]);
@@ -63,10 +63,4 @@ const deleteMovimiento = async (req, res) => {
     res.status(500).json({ error: "An error occurred while deleting data" });
   }
 };
-module.exports = {
-  getMovimientos_inventario,
-  createMovimientosInventario,
-  getMovimientoInventarioById,
-  updateMovimientoInventario,
-  deleteMovimiento,
-};
+

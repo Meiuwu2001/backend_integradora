@@ -1,5 +1,5 @@
-const express = require("express")
-const {getProducto, createProducto, getProductoById, updateProducto, deleteProducto} = require("../controllers/productos");
+import express from  "express";
+import {getProducto, createProducto, getProductoById, updateProducto, deleteProducto} from "../controllers/productos.js";
 
 const router = express.Router();
 
@@ -10,4 +10,4 @@ router.put("/productos/:id", updateProducto)
 router.delete("/productos/:id", deleteProducto)
 
 
-module.exports = router;
+export default router;  // Exportación por defecto

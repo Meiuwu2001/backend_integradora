@@ -1,7 +1,7 @@
-const connect = require("../config/db");
+import connect from "../config/db.js";
 
 
-const getTecnico = async (req, res) => {
+export const getTecnico = async (req, res) => {
   try {
     const db = await connect();
     const [result] = await db.query("SELECT * FROM tecnicos;");
@@ -12,7 +12,7 @@ const getTecnico = async (req, res) => {
   }
 };
 
-const createTecnico = async (req, res) => {
+export const createTecnico = async (req, res) => {
   try {
     const db = await connect();
     await db.query("INSERT INTO tecnicos SET ?", [req.body]);
@@ -23,7 +23,7 @@ const createTecnico = async (req, res) => {
   }
 };
 
-const getTecnicoById = async (req, res) => {
+export const getTecnicoById = async (req, res) => {
   try {
     const db = await connect();
     const [result] = await db.query("SELECT * FROM Tecnico WHERE idTecnicos =?", [
@@ -39,7 +39,7 @@ const getTecnicoById = async (req, res) => {
   }
 };
 
-const updateTecnico = async (req, res) => {
+export const updateTecnico = async (req, res) => {
   try {
     const db = await connect();
     await db.query("UPDATE Tecnico SET? WHERE idTecnicos =?", [
@@ -53,7 +53,7 @@ const updateTecnico = async (req, res) => {
   }
 };
 
-const deleteTecnico = async (req, res) => {
+export const deleteTecnico = async (req, res) => {
   try {
     const db = await connect();
     await db.query("DELETE FROM tecnicos WHERE idTecnicos =?", [req.params.id]);
@@ -62,11 +62,4 @@ const deleteTecnico = async (req, res) => {
     console.error(error);
     res.status(500).json({ error: "An error occurred while deleting data" });
   }
-};
-module.exports = {
-  getTecnico,
-  createTecnico,
-  getTecnicoById,
-  updateTecnico,
-  deleteTecnico,
 };

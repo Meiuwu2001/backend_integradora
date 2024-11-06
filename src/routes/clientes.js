@@ -1,5 +1,5 @@
-const express = require("express")
-const {getCliente, createCliente, getClienteById, updateCliente, deleteCliente} = require("../controllers/clientes");
+import express from  "express";
+import {getCliente, createCliente, getClienteById, updateCliente, deleteCliente} from "../controllers/clientes.js";
 
 const router = express.Router();
 
@@ -10,4 +10,4 @@ router.put("/clientes/:id", updateCliente)
 router.delete("/clientes/:id", deleteCliente)
 
 
-module.exports = router;
+export default router;  // Exportación por defecto

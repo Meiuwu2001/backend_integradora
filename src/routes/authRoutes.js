@@ -1,10 +1,10 @@
 // routes/authRoutes.js
-const express = require("express");
-const {
+import express from "express";
+import {
   registrar,
   iniciarSesion,
   verificarToken,
-} = require("../controllers/authController");
+} from "../controllers/authController.js";
 const router = express.Router();
 
 router.post("/registrar", registrar);
@@ -13,4 +13,4 @@ router.get("/perfil", verificarToken, (req, res) => {
   res.json({ mensaje: "Acceso autorizado", usuario: req.usuario });
 });
 
-module.exports = router;
+export default router; // Exportación por defecto

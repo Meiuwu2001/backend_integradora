@@ -1,7 +1,7 @@
-const connect = require("../config/db");
+import  connect from "../config/db.js";
 
 
-const getProductos = async (req, res) => {
+export const getProducto = async (req, res) => {
   try {
     const db = await connect();
     const [result] = await db.query("SELECT * FROM productos;");
@@ -12,7 +12,7 @@ const getProductos = async (req, res) => {
   }
 };
 
-const createProductos = async (req, res) => {
+export const createProducto = async (req, res) => {
   try {
     const db = await connect();
     await db.query("INSERT INTO productos SET ?", [req.body]);
@@ -23,7 +23,7 @@ const createProductos = async (req, res) => {
   }
 };
 
-const getProductosById = async (req, res) => {
+export const getProductoById = async (req, res) => {
   try {
     const db = await connect();
     const [result] = await db.query("SELECT * FROM productos WHERE idProductos =?", [
@@ -39,7 +39,7 @@ const getProductosById = async (req, res) => {
   }
 };
 
-const updateProductos = async (req, res) => {
+export const updateProducto = async (req, res) => {
   try {
     const db = await connect();
     await db.query("UPDATE productos SET? WHERE idProductos =?", [
@@ -53,7 +53,7 @@ const updateProductos = async (req, res) => {
   }
 };
 
-const deleteProductos = async (req, res) => {
+export const deleteProducto = async (req, res) => {
   try {
     const db = await connect();
     await db.query("DELETE FROM productos WHERE idProductos =?", [req.params.id]);
@@ -62,11 +62,4 @@ const deleteProductos = async (req, res) => {
     console.error(error);
     res.status(500).json({ error: "An error occurred while deleting data" });
   }
-};
-module.exports = {
-  getProductos,
-  createProductos,
-  getProductosById,
-  updateProductos,
-  deleteProductos,
 };

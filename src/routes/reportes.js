@@ -1,5 +1,5 @@
-const express = require("express")
-const {getReporte, createReporte, getReporteById, updateReporte, deleteReporte} = require("../controllers/reportes");
+import express from  "express";
+import {getReporte, createReporte, getReporteById, updateReporte, deleteReporte} from "../controllers/reportes.js";
 
 const router = express.Router();
 
@@ -10,4 +10,4 @@ router.put("/reportes/:id", updateReporte)
 router.delete("/reportes/:id", deleteReporte)
 
 
-module.exports = router;
+export default router;  // Exportación por defecto

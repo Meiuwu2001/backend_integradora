@@ -1,5 +1,5 @@
-const express = require("express")
-const {getMovimientos_inventario, createMovimientosInventario, getMovimientoInventarioById, updateMovimientoInventario, deleteMovimiento} = require("../controllers/movimientosInventario");
+import express from  "express";
+import {getMovimientos_inventario, createMovimientosInventario, getMovimientoInventarioById, updateMovimientoInventario, deleteMovimiento} from "../controllers/movimientosInventario.js";
 
 const router = express.Router();
 
@@ -10,4 +10,4 @@ router.put("/movimientosInventario/:id", updateMovimientoInventario)
 router.delete("/movimientosInventario/:id", deleteMovimiento)
 
 
-module.exports = router;
+export default router;  // Exportación por defecto

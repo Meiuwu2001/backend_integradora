@@ -1,7 +1,7 @@
-const connect = require("../config/db");
+import connect from "../config/db.js";
 
 
-const getReportehasEquipo = async (req, res) => {
+export const getReportehasEquipo = async (req, res) => {
   try {
     const db = await connect();
     const [result] = await db.query("SELECT * FROM reportes_has_equipos;");
@@ -12,7 +12,7 @@ const getReportehasEquipo = async (req, res) => {
   }
 };
 
-const createReportehasEquipo = async (req, res) => {
+export const createReportehasEquipo = async (req, res) => {
   try {
     const db = await connect();
     await db.query("INSERT INTO reportes_has_equipos SET ?", [req.body]);
@@ -63,10 +63,4 @@ const createReportehasEquipo = async (req, res) => {
 //     res.status(500).json({ error: "An error occurred while deleting data" });
 //   }
 // };
-module.exports = {
-  getReportehasEquipo,
-  createReportehasEquipo,
-//   getClienteById,
-//   updateCliente,
-//   deleteCliente,
-};
+

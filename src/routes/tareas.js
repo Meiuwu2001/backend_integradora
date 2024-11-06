@@ -1,5 +1,5 @@
-const express = require("express")
-const {getTarea, createTarea, getTareaById, updateTarea, deleteTarea} = require("../controllers/Tarea");
+import express from  "express";
+import {getTarea, createTarea, getTareaById, updateTarea, deleteTarea} from "../controllers/tareas.js";
 
 const router = express.Router();
 
@@ -10,4 +10,4 @@ router.put("/Tareas/:id", updateTarea)
 router.delete("/Tareas/:id", deleteTarea)
 
 
-module.exports = router;
+export default router;  // Exportación por defecto

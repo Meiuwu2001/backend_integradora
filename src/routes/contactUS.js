@@ -1,19 +1,22 @@
-const express = require("express");
+import express from "express";
 const router = express.Router();
 
-const ContactUsController = require("../controllers/contactUS");
+import {
+  getContactUS,
+  getContactUSById,
+  createContactUS,
+  updateContactUS,
+  deleteContactUS,
+} from "../controllers/contactUS.js";
 
-router.get("/contactUs", ContactUsController.getContactUS);
+router.get("/contactUs", getContactUS);
 
-router.get("/contactUs/:id", ContactUsController.getContactUSById);
+router.get("/contactUs/:id", getContactUSById);
 
-router.post("/contactUs", ContactUsController.createContactUS);
+router.post("/contactUs", createContactUS);
 
-router.put("/contactUs/:id", ContactUsController.updateContactUS);
+router.put("/contactUs/:id", updateContactUS);
 
-router.delete("/contactUs/:id", ContactUsController.deleteContactUS);
+router.delete("/contactUs/:id", deleteContactUS);
 
-
-module.exports = router;
-
-
+export default router; // Exportación por defecto

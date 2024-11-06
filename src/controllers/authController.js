@@ -1,10 +1,10 @@
-const jwt = require("jsonwebtoken");
-const bcrypt = require("bcryptjs");
-const connect = require("../config/db"); // Importamos la conexión
-const { secret, expiresIn } = require("../config/jwt");
+import jwt from "jsonwebtoken";
+import bcrypt from "bcryptjs";
+import connect from "../config/db.js"; // Importamos la conexión
+import { secret, expiresIn } from "../config/jwt.js";
 
 // Registrar un usuario
-exports.registrar = async (req, res) => {
+export const registrar = async (req, res) => {
   const { user, password, rol } = req.body;
 
   try {
@@ -20,12 +20,10 @@ exports.registrar = async (req, res) => {
 
     await connection.end(); // Cerrar conexión
 
-    res
-      .status(201)
-      .json({
-        mensaje: "Usuario registrado exitosamente",
-        userId: result.insertId,
-      });
+    res.status(201).json({
+      mensaje: "Usuario registrado exitosamente",
+      userId: result.insertId,
+    });
   } catch (error) {
     console.error("Error al registrar usuario:", error);
     res.status(500).json({ mensaje: "Error al registrar usuario", error });
@@ -33,7 +31,7 @@ exports.registrar = async (req, res) => {
 };
 
 // Iniciar sesión
-exports.iniciarSesion = async (req, res) => {
+export const iniciarSesion = async (req, res) => {
   const { user, password } = req.body;
 
   try {
@@ -68,7 +66,7 @@ exports.iniciarSesion = async (req, res) => {
 };
 
 // Middleware para verificar token
-exports.verificarToken = (req, res, next) => {
+export const verificarToken = (req, res, next) => {
   const token = req.headers["authorization"];
 
   if (!token)
