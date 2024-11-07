@@ -21,16 +21,16 @@ app.use(bodyParser.json());
 app.use(cors());
 
 app.use("/api", contactUs);
-// app.use("/api", clientes);
-// app.use("/api", equipos);
-// app.use("/api", movimientosInventario);
-// app.use("/api", productos);
-// app.use("/api", ReportehasEquipos);
-// app.use("/api", reportes);
-// app.use("/api", tareas);
-// app.use("/api", tecnicos);
-// app.use("/api", ubicaciones);
-// app.use("/api/auth", authRoutes);
+app.use("/api", clientes);
+app.use("/api", equipos);
+app.use("/api", movimientosInventario);
+app.use("/api", productos);
+app.use("/api", ReportehasEquipos);
+app.use("/api", reportes);
+app.use("/api", tareas);
+app.use("/api", tecnicos);
+app.use("/api", ubicaciones);
+app.use("/api/auth", authRoutes);
 
 app.get("/", (req, res) => {
   res.send("Hello, Netlify!");
