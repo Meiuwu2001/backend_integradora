@@ -5,7 +5,7 @@
   "main": "functions/index.js",
   "scripts": {
     "start": "node functions/index.js",
-    "build": "netlify deploy --prod"
+    "build": "echo 'No build step required'"
   },
   "author": "Samuel RG",
   "license": "ISC",
