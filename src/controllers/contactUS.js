@@ -1,5 +1,7 @@
 import connect from "../config/db.js";
 
+
+
 export const getContactUS = async (req, res) => {
   try {
     const db = await connect();

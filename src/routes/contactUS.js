@@ -8,6 +8,9 @@ import {
   updateContactUS,
   deleteContactUS,
 } from "../controllers/contactUS.js";
+router.get("/contact", (req, res) => {
+  res.send("Hola desde la ruta de contacto");
+});
 
 router.get("/contactUs", getContactUS);
 
