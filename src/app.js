@@ -3,6 +3,7 @@ import cors from "cors";
 import bodyParser from "body-parser";
 
 import contactUs from "./routes/contactUS.js";
+console.log("contactUs import:", contactUs);
 import authRoutes from "./routes/authRoutes.js";
 import clientes from "./routes/clientes.js";
 import equipos from "./routes/equipos.js";
