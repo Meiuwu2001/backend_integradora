@@ -1,10 +1,8 @@
 import app from "../src/app.js";
 import serverless from "serverless-http";
 
-// const handler = serverless(app);
+const handler = serverless(app);
 
-// export { handler };
+export { handler };
 
-app.listen(3000, () => {
-  console.log('Servidor iniciado en el puerto 3000');
-});
+
