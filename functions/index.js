@@ -1,7 +1,6 @@
 import app from "../src/app.js";
-import serverless from "serverless-http";
 
-
-
-export const handler = serverless(app);
-
+// Escucha en el puerto por defecto de Vercel (aunque normalmente no se necesita en serverless).
+app.listen(3000, () => {
+  console.log("Server is running on port 3000");
+});
