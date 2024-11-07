@@ -21,7 +21,7 @@ app.use(express.json());
 app.use(bodyParser.json());
 app.use(cors());
 
-app.use("/.netlify/functions/server", router);
+app.use("/.netlify/functions/index", router);
 
 app.use("/api", contactUs);
 app.use("/api", clientes);
