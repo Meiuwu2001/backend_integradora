@@ -16,7 +16,7 @@ import ubicaciones from "../src/routes/ubicaciones.js";
 const app = express();
 
 app.use(express.json());
-app.use(bodyParser.json()); // Parsear JSON
+app.use(bodyParser.json());
 app.use(cors());
 
 app.use("/api", contactUs);
@@ -29,9 +29,10 @@ app.use("/api", reportes);
 app.use("/api", tareas);
 app.use("/api", tecnicos);
 app.use("/api", ubicaciones);
-app.use("/api/auth", authRoutes); // Enlazar rutas de autenticación
+app.use("/api/auth", authRoutes);
 
 app.get("/", (req, res) => {
-    res.send("Hello, Netlify!");
-  });
+  res.send("Hello, Netlify!");
+});
+
 export default app;
