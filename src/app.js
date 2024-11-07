@@ -15,13 +15,12 @@ import tecnicos from "./routes/tecnicos.js";
 import ubicaciones from "./routes/ubicaciones.js";
 
 const app = express();
-const router = express.Router();
 
 app.use(express.json());
 app.use(bodyParser.json());
 app.use(cors());
 
-app.use("/.netlify/functions/index", router);
+console.log("contact:", contactUs);
 
 app.use("/api", contactUs);
 app.use("/api", clientes);

@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "description": "API Rest Rancheritos tech/copy megatron apps",
   "main": "functions/index.js",
-"scripts": {
-  "start": "node functions/index.js",
-  "build": "echo 'No build step required'"
-},
+  "scripts": {
+    "start": "node functions/index.js",
+    "build": "echo 'No build step required'"
+  },
   "author": "Samuel RG",
   "license": "ISC",
   "type": "module",
