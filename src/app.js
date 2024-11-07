@@ -1,17 +1,18 @@
 import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
-import contactUs from "../src/routes/contactUS.js";
-import authRoutes from "../src/routes/authRoutes.js";
-import clientes from "../src/routes/clientes.js";
-import equipos from "../src/routes/equipos.js";
-import movimientosInventario from "../src/routes/movimientosInventario.js";
-import productos from "../src/routes/productos.js";
-import ReportehasEquipos from "../src/routes/ReportehasEquipo.js";
-import reportes from "../src/routes/reportes.js";
-import tareas from "../src/routes/tareas.js";
-import tecnicos from "../src/routes/tecnicos.js";
-import ubicaciones from "../src/routes/ubicaciones.js";
+
+import contactUs from "./routes/contactUS.js";
+import authRoutes from "./routes/authRoutes.js";
+import clientes from "./routes/clientes.js";
+import equipos from "./routes/equipos.js";
+import movimientosInventario from "./routes/movimientosInventario.js";
+import productos from "./routes/productos.js";
+import ReportehasEquipos from "./routes/ReportehasEquipo.js";
+import reportes from "./routes/reportes.js";
+import tareas from "./routes/tareas.js";
+import tecnicos from "./routes/tecnicos.js";
+import ubicaciones from "./routes/ubicaciones.js";
 
 const app = express();
 
