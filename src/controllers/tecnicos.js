@@ -26,7 +26,7 @@ export const createTecnico = async (req, res) => {
 export const getTecnicoById = async (req, res) => {
   try {
     const db = await connect();
-    const [result] = await db.query("SELECT * FROM Tecnico WHERE idTecnicos =?", [
+    const [result] = await db.query("SELECT * FROM tecnicos WHERE idTecnicos =?", [
       req.params.id,
     ]);
     if (!result.length) {
@@ -42,7 +42,7 @@ export const getTecnicoById = async (req, res) => {
 export const updateTecnico = async (req, res) => {
   try {
     const db = await connect();
-    await db.query("UPDATE Tecnico SET? WHERE idTecnicos =?", [
+    await db.query("UPDATE tecnicos SET? WHERE idTecnicos =?", [
       req.body,
       req.params.id,
     ]);
