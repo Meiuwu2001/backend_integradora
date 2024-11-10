@@ -26,7 +26,7 @@ export const createReporte = async (req, res) => {
 export const getReporteById = async (req, res) => {
   try {
     const db = await connect();
-    const [result] = await db.query("SELECT * FROM Reporte WHERE idReportes =?", [
+    const [result] = await db.query("SELECT * FROM reportes WHERE idReportes =?", [
       req.params.id,
     ]);
     if (!result.length) {
@@ -42,7 +42,7 @@ export const getReporteById = async (req, res) => {
 export const updateReporte = async (req, res) => {
   try {
     const db = await connect();
-    await db.query("UPDATE Reporte SET? WHERE idReportes =?", [
+    await db.query("UPDATE reportes SET? WHERE idReportes =?", [
       req.body,
       req.params.id,
     ]);

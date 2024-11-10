@@ -26,7 +26,7 @@ export const createTarea = async (req, res) => {
 export const getTareaById = async (req, res) => {
   try {
     const db = await connect();
-    const [result] = await db.query("SELECT * FROM Tarea WHERE idTareas =?", [
+    const [result] = await db.query("SELECT * FROM tareas WHERE idTareas =?", [
       req.params.id,
     ]);
     if (!result.length) {
@@ -42,7 +42,7 @@ export const getTareaById = async (req, res) => {
 export const updateTarea = async (req, res) => {
   try {
     const db = await connect();
-    await db.query("UPDATE Tarea SET? WHERE idTareas =?", [
+    await db.query("UPDATE tareas SET? WHERE idTareas =?", [
       req.body,
       req.params.id,
     ]);

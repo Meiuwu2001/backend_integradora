@@ -42,7 +42,7 @@ export const getMovimientoInventarioById = async (req, res) => {
 export const updateMovimientoInventario = async (req, res) => {
   try {
     const db = await connect();
-    await db.query("UPDATE movimiento_inventario SET? WHERE idMovimiento =?", [
+    await db.query("UPDATE movimientos_inventario SET? WHERE idMovimiento =?", [
       req.body,
       req.params.id,
     ]);
@@ -56,7 +56,7 @@ export const updateMovimientoInventario = async (req, res) => {
 export const deleteMovimiento = async (req, res) => {
   try {
     const db = await connect();
-    await db.query("DELETE FROM movimiento_inventario WHERE idMovimiento =?", [req.params.id]);
+    await db.query("DELETE FROM movimientos_inventario WHERE idMovimiento =?", [req.params.id]);
     res.json({ status: "ok" });
   } catch (error) {
     console.error(error);
