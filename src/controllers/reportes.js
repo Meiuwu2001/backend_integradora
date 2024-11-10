@@ -26,7 +26,7 @@ export const createReporte = async (req, res) => {
 export const getReporteById = async (req, res) => {
   try {
     const db = await connect();
-    const [result] = await db.query("SELECT * FROM reportes WHERE idReportes =?", [
+    const [result] = await db.query("SELECT * FROM reportes WHERE idReporte =?", [
       req.params.id,
     ]);
     if (!result.length) {
@@ -42,7 +42,7 @@ export const getReporteById = async (req, res) => {
 export const updateReporte = async (req, res) => {
   try {
     const db = await connect();
-    await db.query("UPDATE reportes SET? WHERE idReportes =?", [
+    await db.query("UPDATE reportes SET? WHERE idReporte =?", [
       req.body,
       req.params.id,
     ]);
@@ -56,7 +56,7 @@ export const updateReporte = async (req, res) => {
 export const deleteReporte = async (req, res) => {
   try {
     const db = await connect();
-    await db.query("DELETE FROM reportes WHERE idReportes =?", [req.params.id]);
+    await db.query("DELETE FROM reportes WHERE idReporte =?", [req.params.id]);
     res.json({ status: "ok" });
   } catch (error) {
     console.error(error);
