@@ -26,7 +26,7 @@ export const createUbicacion = async (req, res) => {
 export const getUbicacionById = async (req, res) => {
   try {
     const db = await connect();
-    const [result] = await db.query("SELECT * FROM Ubicacion WHERE idUbicaciones =?", [
+    const [result] = await db.query("SELECT * FROM ubicaciones WHERE idUbicaciones =?", [
       req.params.id,
     ]);
     if (!result.length) {
@@ -42,7 +42,7 @@ export const getUbicacionById = async (req, res) => {
 export const updateUbicacion = async (req, res) => {
   try {
     const db = await connect();
-    await db.query("UPDATE Ubicacion SET? WHERE idUbicaciones =?", [
+    await db.query("UPDATE ubicaciones SET? WHERE idUbicaciones =?", [
       req.body,
       req.params.id,
     ]);
