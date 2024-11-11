@@ -7,12 +7,14 @@ const swaggerOptions = {
       version: "1.0.0",
       title: "Docu API",
       description: "API Documentation for use",
-      servers: ["http://localhost", "https://backend-integradora.vercel.app"],
-      schemes: -"https" - "http",
+      servers: [
+        { url: "https://backend-integradora.vercel.app" },
+        { url: "http://localhost" },
+      ],
+      schemes: ["https", "http"], // Especificar los protocolos permitidos
     },
   },
-  basePath: "/",
-  apis: ["src/routes/*.js"],
+  apis: ["src/routes/*.js"], // Archivos donde están definidas las rutas de la API
 };
 
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
