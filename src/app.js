@@ -36,8 +36,8 @@ app.use("/api", tecnicos);
 app.use("/api", ubicaciones);
 app.use("/api/auth", authRoutes);
 
-// Sirve los archivos estáticos de Swagger UI
-app.use("/swagger-ui", express.static("public/swagger-ui-dist"));
+app.use("/swagger-ui", express.static(getAbsoluteSwaggerFsPath()));
+app.use("/public", express.static("public"));
 
 // Agrega la ruta para mostrar la documentación de la API
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerSpec));
