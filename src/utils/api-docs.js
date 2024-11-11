@@ -12,7 +12,7 @@ const swaggerOptions = {
       {
         url: process.env.VERCEL_URL
           ? `https://${process.env.VERCEL_URL}`
-          : "http://localhost",
+          : "http://localhost", // Asegúrate de que esta URL sea correcta
       },
     ],
     schemes: ["https", "http"],
@@ -20,7 +20,4 @@ const swaggerOptions = {
   apis: ["src/routes/*.js"], // Archivos donde están definidas las rutas de la API
 };
 
-const swaggerSpec = swaggerJSDoc(swaggerOptions);
-
-// Exporta correctamente swaggerSpec
-export { swaggerSpec };
+export default swaggerSpec = swaggerJSDoc(swaggerOptions);

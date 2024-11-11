@@ -13,7 +13,7 @@
       },
       {
         "src": "/api-docs",
-        "dest": "functions/index.js"
+        "dest": "/functions/index.js"
       },
       {
         "src": "/(.*)",
