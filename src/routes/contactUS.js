@@ -5,8 +5,10 @@ const router = express.Router();
 
 router.get("/contactUs", contactControllers.getContactUS);
 router.get("/contactUs/:id", contactControllers.getContactUSById);
-router.post("/contactUs", contactControllers.createContactUS);
+app.post("/api/contactus", contactControllers.createContactUS);
 router.put("/contactUs/:id", contactControllers.updateContactUS);
 router.delete("/contactUs/:id", contactControllers.deleteContactUS);
 
 export default router;
+
+// Modificar tu ruta de POST para aceptar datos y archivos
