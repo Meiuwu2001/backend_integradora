@@ -40,7 +40,7 @@ const contactControllers = {
       // Crear un nuevo objeto para almacenar solo los campos que queremos en la BD
       const { nombre, apellidos, telefono, correo, mensaje } = req.body;
       const contactData = { nombre, apellidos, telefono, correo, mensaje };
-      
+      console.log(contactData);
       // Guardar datos en la base de datos sin la imagen
       await db.query("INSERT INTO contactus SET ?", [contactData]);
 
