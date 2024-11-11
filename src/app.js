@@ -17,7 +17,11 @@ const app = express();
 
 app.use(express.json());
 app.use(bodyParser.json());
-app.use(cors());
+app.use(
+  cors({
+    origin: "*", // Permite todas las solicitudes desde cualquier dominio
+  })
+);
 
 app.use("/api", contactUs);
 app.use("/api", clientes);
