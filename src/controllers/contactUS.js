@@ -36,46 +36,67 @@ const contactControllers = {
   createContactUS: async (req, res) => {
     try {
       const db = await connect();
-      await db.query("INSERT INTO contactus SET ?", [req.body]);
 
-      // Enviar correo de confirmación usando Resend
+      // Crear un nuevo objeto para almacenar solo los campos que queremos en la BD
+      const { nombre, apellidos, telefono, correo, mensaje } = req.body;
+      const contactData = { nombre, apellidos, telefono, correo, mensaje };
+      
+      // Guardar datos en la base de datos sin la imagen
+      await db.query("INSERT INTO contactus SET ?", [contactData]);
+
+      // Construir el HTML del correo
+      let emailContent = `
+        <div style="font-family: Arial, sans-serif; color: #333; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #ddd; border-radius: 8px;">
+          <h1 style="text-align: center; color: #007bff;">Nuevo formulario de contacto</h1>
+          <p style="font-size: 16px;">Hola, has recibido un nuevo mensaje de contacto con los siguientes detalles:</p>
+    
+          <table style="width: 100%; border-collapse: collapse; margin-top: 15px;">
+            <tr>
+              <td style="padding: 8px; border-bottom: 1px solid #ddd; font-weight: bold; width: 30%;">Nombre:</td>
+              <td style="padding: 8px; border-bottom: 1px solid #ddd;">${nombre}</td>
+            </tr>
+            <tr>
+              <td style="padding: 8px; border-bottom: 1px solid #ddd; font-weight: bold;">Apellidos:</td>
+              <td style="padding: 8px; border-bottom: 1px solid #ddd;">${apellidos}</td>
+            </tr>
+            <tr>
+              <td style="padding: 8px; border-bottom: 1px solid #ddd; font-weight: bold;">Teléfono:</td>
+              <td style="padding: 8px; border-bottom: 1px solid #ddd;">${telefono}</td>
+            </tr>
+            <tr>
+              <td style="padding: 8px; border-bottom: 1px solid #ddd; font-weight: bold;">Email:</td>
+              <td style="padding: 8px; border-bottom: 1px solid #ddd;">${correo}</td>
+            </tr>
+            <tr>
+              <td style="padding: 8px; border-bottom: 1px solid #ddd; font-weight: bold;">Mensaje:</td>
+              <td style="padding: 8px; border-bottom: 1px solid #ddd;">${mensaje}</td>
+            </tr>
+          </table>
+      `;
+
+      // Incluir la imagen si está presente en el cuerpo de la solicitud
+      if (req.body.imagen) {
+        emailContent += `
+          <div style="margin-top: 20px; text-align: center;">
+            <p style="font-size: 16px;">Imagen adjunta:</p>
+            <img src="${req.body.imagen}" alt="Imagen adjunta" style="max-width: 100%; height: auto; border-radius: 8px;">
+          </div>
+        `;
+      }
+
+      emailContent += `
+          <p style="font-size: 14px; color: #666; margin-top: 20px; text-align: center;">
+            Gracias por utilizar nuestros servicios.
+          </p>
+        </div>
+      `;
+
+      // Enviar el correo de confirmación usando Resend
       await resend.emails.send({
         from: "Acme <onboarding@resend.dev>",
-        to: "rancheritostech@gmail.com", // Puedes usar req.body.email si deseas enviar el correo al solicitante
+        to: "rancheritostech@gmail.com", // Puedes usar req.body.correo si deseas enviar el correo al solicitante
         subject: "Nuevo formulario de contacto recibido",
-        html: `
-          <div style="font-family: Arial, sans-serif; color: #333; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #ddd; border-radius: 8px;">
-            <h1 style="text-align: center; color: #007bff;">Nuevo formulario de contacto</h1>
-            <p style="font-size: 16px;">Hola, has recibido un nuevo mensaje de contacto con los siguientes detalles:</p>
-      
-            <table style="width: 100%; border-collapse: collapse; margin-top: 15px;">
-              <tr>
-                <td style="padding: 8px; border-bottom: 1px solid #ddd; font-weight: bold; width: 30%;">Nombre:</td>
-                <td style="padding: 8px; border-bottom: 1px solid #ddd;">${req.body.nombre}</td>
-              </tr>
-              <tr>
-                <td style="padding: 8px; border-bottom: 1px solid #ddd; font-weight: bold;">Apellidos:</td>
-                <td style="padding: 8px; border-bottom: 1px solid #ddd;">${req.body.apellidos}</td>
-              </tr>
-              <tr>
-                <td style="padding: 8px; border-bottom: 1px solid #ddd; font-weight: bold;">Teléfono:</td>
-                <td style="padding: 8px; border-bottom: 1px solid #ddd;">${req.body.telefono}</td>
-              </tr>
-              <tr>
-                <td style="padding: 8px; border-bottom: 1px solid #ddd; font-weight: bold;">Email:</td>
-                <td style="padding: 8px; border-bottom: 1px solid #ddd;">${req.body.correo}</td>
-              </tr>
-              <tr>
-                <td style="padding: 8px; border-bottom: 1px solid #ddd; font-weight: bold;">Mensaje:</td>
-                <td style="padding: 8px; border-bottom: 1px solid #ddd;">${req.body.mensaje}</td>
-              </tr>
-            </table>
-      
-            <p style="font-size: 14px; color: #666; margin-top: 20px; text-align: center;">
-              Gracias por utilizar nuestros servicios.
-            </p>
-          </div>
-        `,
+        html: emailContent,
       });
 
       res.json({ status: "ok" });
