@@ -37,10 +37,14 @@ app.use("/api", ubicaciones);
 app.use("/api/auth", authRoutes);
 
 // Sirve los archivos estáticos de Swagger UI
-app.use("/swagger-ui", express.static("node_modules/swagger-ui-dist"));
-
-// Agrega la ruta para mostrar la documentación de la API
-app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerSpec));
+app.use(
+  "/api-docs", // Ruta donde quieres ver la documentación de la API
+  swaggerUI.serve,
+  swaggerUI.setup(swaggerSpec, {
+    customCssUrl:
+      "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.1.0/swagger-ui.min.css", // O puedes usar un archivo CSS local si lo prefieres
+  })
+);
 
 app.get("/", (req, res) => {
   res.send(
