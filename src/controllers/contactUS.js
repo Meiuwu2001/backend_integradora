@@ -1,5 +1,8 @@
 // controllers/contactUS.js
 import connect from "../config/db.js";
+import { Resend } from 'resend';
+
+const resend = new Resend("re_jQriAvK3_7eQxf7jhP82Y2reX6k7NUWrE");
 
 const contactControllers = {
   getContactUS: async (req, res) => {
@@ -34,6 +37,20 @@ const contactControllers = {
     try {
       const db = await connect();
       await db.query("INSERT INTO contactus SET ?", [req.body]);
+
+      // Enviar correo de confirmación usando Resend
+      await resend.emails.send({
+        from: "Acme <onboarding@resend.dev>",
+        to: "rancheritostech@gmail.com", // Puedes usar req.body.email si deseas enviar el correo al solicitante
+        subject: "Nuevo formulario de contacto recibido",
+        html: `
+          <h1>Nuevo formulario de contacto</h1>
+          <p><strong>Nombre:</strong> ${req.body.nombre}</p>
+          <p><strong>Email:</strong> ${req.body.email}</p>
+          <p><strong>Mensaje:</strong> ${req.body.mensaje}</p>
+        `,
+      });
+
       res.json({ status: "ok" });
     } catch (error) {
       console.error(error);
