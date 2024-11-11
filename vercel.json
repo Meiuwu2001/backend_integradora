@@ -9,7 +9,7 @@
   "routes": [
     {
       "src": "/swagger-ui/(.*)",
-      "dest": "/public/swagger-ui-dist/index.html"
+      "dest": "/node_modules/swagger-ui-dist/$1"
     },
     {
       "src": "/api-docs",
