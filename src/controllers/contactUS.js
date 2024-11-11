@@ -1,5 +1,6 @@
 // controllers/contactUS.js
 import connect from "../config/db.js";
+
 import { Resend } from "resend";
 
 const resend = new Resend("re_jQriAvK3_7eQxf7jhP82Y2reX6k7NUWrE");

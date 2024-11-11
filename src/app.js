@@ -3,7 +3,6 @@ import cors from "cors";
 import bodyParser from "body-parser";
 
 import contactUs from "./routes/contactUS.js";
-console.log("contactUs import:", contactUs);
 import authRoutes from "./routes/authRoutes.js";
 import clientes from "./routes/clientes.js";
 import equipos from "./routes/equipos.js";
@@ -20,8 +19,6 @@ app.use(express.json());
 app.use(bodyParser.json());
 app.use(cors());
 
-console.log("contact:", contactUs);
-
 app.use("/api", contactUs);
 app.use("/api", clientes);
 app.use("/api", equipos);
@@ -34,7 +31,8 @@ app.use("/api", ubicaciones);
 app.use("/api/auth", authRoutes);
 
 app.get("/", (req, res) => {
-  res.send("Hello, Netlify!");
+  res.send("Hello, from Express on Vercel!");
 });
 
+// Export the app as a handler for Vercel's serverless function
 export default app;
