@@ -20,7 +20,6 @@ const swaggerOptions = {
   apis: ["src/routes/*.js"], // Archivos donde están definidas las rutas de la API
 };
 
-const swaggerSpec = swaggerJSDoc(swaggerOptions);
+export default swaggerSpec = swaggerJSDoc(swaggerOptions);
 
 // Cambia la exportación de default a una exportación con nombre
-export { swaggerSpec };
