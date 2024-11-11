@@ -1,3 +1,4 @@
+// routes/tecnicos.js
 import express from "express";
 import {
   getTecnico,
@@ -9,31 +10,136 @@ import {
 
 const router = express.Router();
 
+/**
+ * @swagger
+ * tags:
+ *   name: Tecnicos
+ *   description: API para la gestión de técnicos
+ */
+
+/**
+ * @swagger
+ * /api/tecnicos:
+ *   get:
+ *     summary: Obtiene todos los técnicos
+ *     tags: [Tecnicos]
+ *     responses:
+ *       200:
+ *         description: Lista de técnicos obtenida exitosamente.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ */
 router.get("/tecnicos", getTecnico);
-//https://backend-integradora.vercel.app/api/tecnicos
+
+/**
+ * @swagger
+ * /api/tecnicos:
+ *   post:
+ *     summary: Crea un nuevo técnico
+ *     tags: [Tecnicos]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               Nombre:
+ *                 type: string
+ *               ApellidoPa:
+ *                 type: string
+ *               Telefono:
+ *                 type: string
+ *               Estatus:
+ *                 type: string
+ *     responses:
+ *       201:
+ *         description: Técnico creado exitosamente.
+ *       400:
+ *         description: Error al crear el técnico.
+ */
 router.post("/tecnicos", createTecnico);
-//https://backend-integradora.vercel.app/api/tecnicos
-// {
-//     "Nombre": "Carlos",
-//     "ApellidoPa": "López",
-//     "Telefono": "555-9876",
-//     "Estatus": "Inactivo"
-//   }
 
+/**
+ * @swagger
+ * /api/tecnicos/{id}:
+ *   get:
+ *     summary: Obtiene un técnico por ID
+ *     tags: [Tecnicos]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: ID del técnico
+ *     responses:
+ *       200:
+ *         description: Técnico obtenido exitosamente.
+ *       404:
+ *         description: Técnico no encontrado.
+ */
 router.get("/tecnicos/:id", getTecnicoById);
-//https://backend-integradora.vercel.app/api/tecnicos/1
 
+/**
+ * @swagger
+ * /api/tecnicos/{id}:
+ *   put:
+ *     summary: Actualiza un técnico por ID
+ *     tags: [Tecnicos]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: ID del técnico
+ *     requestBody:
+ *       required: true
+ *       content:
+         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               Nombre:
+ *                 type: string
+ *               ApellidoPa:
+ *                 type: string
+ *               Telefono:
+ *                 type: string
+ *               Estatus:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Técnico actualizado exitosamente.
+ *       404:
+ *         description: Técnico no encontrado.
+ */
 router.put("/tecnicos/:id", updateTecnico);
-//https://backend-integradora.vercel.app/api/tecnicos/1
-// {
-//     "Nombre": "Juan",
-//     "ApellidoPa": "Pérez",
-//     "Telefono": "555-1234",
-//     "Estatus": "Inactivo"
-//   }
-//En los update el Json puede ir con los campos que sean siempre y cuando esten en la BD, la consulta
-//se crea depenediento del Request Body
-router.delete("/tecnicos/:id", deleteTecnico);
-//https://backend-integradora.vercel.app/api/tecnicos/1
 
-export default router; // Exportación por defecto
+/**
+ * @swagger
+ * /api/tecnicos/{id}:
+ *   delete:
+ *     summary: Elimina un técnico por ID
+ *     tags: [Tecnicos]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: ID del técnico
+ *     responses:
+ *       200:
+ *         description: Técnico eliminado exitosamente.
+ *       404:
+ *         description: Técnico no encontrado.
+ */
+router.delete("/tecnicos/:id", deleteTecnico);
+
+export default router;

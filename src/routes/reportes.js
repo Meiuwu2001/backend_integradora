@@ -1,3 +1,4 @@
+// routes/reportes.js
 import express from "express";
 import {
   getReporte,
@@ -9,37 +10,156 @@ import {
 
 const router = express.Router();
 
-router.get("/reportes", getReporte);
-//https://backend-integradora.vercel.app/api/reportes
-router.post("/reportes", createReporte);
-// https://backend-integradora.vercel.app/api/reportes
-// {
-//     "FolioReporte": "FR-2023-0003",
-//     "fechaCreacion": "2023-11-02 09:00:00",
-//     "fechaHoraActualizacion": "2023-11-02 11:30:00",
-//     "estado": "ejecucion",
-//     "comentarios": "Requiere piezas de repuesto",
-//     "creadorReporte": 3,
-//     "tecnicoAsignado": 3,
-//      "IdEquipos": 1
-//   }
-router.get("/reportes/:id", getReporteById);
-//backend-integradora.vercel.app/api/reportes/1
-router.put("/reportes/:id", updateReporte);
-//https://backend-integradora.vercel.app/api/reportes
-// {
-//     "FolioReporte": "FR-2023-0003",
-//     "fechaCreacion": "2023-11-02 09:00:00",
-//     "fechaHoraActualizacion": "2023-11-02 11:30:00",
-//     "estado": "ejecucion",
-//     "comentarios": "Requiere piezas de repuesto",
-//     "creadorReporte": 3,
-//     "tecnicoAsignado": 3,
-//      "IdEquipos": 1
-//   }
-//En los update el Json puede ir con los campos que sean siempre y cuando esten en la BD, la consulta
-//se crea depenediento del Request Body
-router.delete("/reportes/:id", deleteReporte);
-// https://backend-integradora.vercel.app/api/reportes/1
+/**
+ * @swagger
+ * tags:
+ *   name: Reportes
+ *   description: API para la gestión de reportes
+ */
 
-export default router; // Exportación por defecto
+/**
+ * @swagger
+ * /api/reportes:
+ *   get:
+ *     summary: Obtiene todos los reportes
+ *     tags: [Reportes]
+ *     responses:
+ *       200:
+ *         description: Lista de reportes obtenida exitosamente.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ */
+router.get("/reportes", getReporte);
+
+/**
+ * @swagger
+ * /api/reportes:
+ *   post:
+ *     summary: Crea un nuevo reporte
+ *     tags: [Reportes]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               FolioReporte:
+ *                 type: string
+ *               fechaCreacion:
+ *                 type: string
+ *                 format: date-time
+ *               fechaHoraActualizacion:
+ *                 type: string
+ *                 format: date-time
+ *               estado:
+ *                 type: string
+ *               comentarios:
+ *                 type: string
+ *               creadorReporte:
+ *                 type: integer
+ *               tecnicoAsignado:
+ *                 type: integer
+ *               IdEquipos:
+ *                 type: integer
+ *     responses:
+ *       201:
+ *         description: Reporte creado exitosamente.
+ *       400:
+ *         description: Error al crear el reporte.
+ */
+router.post("/reportes", createReporte);
+
+/**
+ * @swagger
+ * /api/reportes/{id}:
+ *   get:
+ *     summary: Obtiene un reporte por ID
+ *     tags: [Reportes]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: ID del reporte
+ *     responses:
+ *       200:
+ *         description: Reporte obtenido exitosamente.
+ *       404:
+ *         description: Reporte no encontrado.
+ */
+router.get("/reportes/:id", getReporteById);
+
+/**
+ * @swagger
+ * /api/reportes/{id}:
+ *   put:
+ *     summary: Actualiza un reporte por ID
+ *     tags: [Reportes]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: ID del reporte
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               FolioReporte:
+ *                 type: string
+ *               fechaCreacion:
+ *                 type: string
+ *                 format: date-time
+ *               fechaHoraActualizacion:
+ *                 type: string
+ *                 format: date-time
+ *               estado:
+ *                 type: string
+ *               comentarios:
+ *                 type: string
+ *               creadorReporte:
+ *                 type: integer
+ *               tecnicoAsignado:
+ *                 type: integer
+ *               IdEquipos:
+ *                 type: integer
+ *     responses:
+ *       200:
+ *         description: Reporte actualizado exitosamente.
+ *       404:
+ *         description: Reporte no encontrado.
+ */
+router.put("/reportes/:id", updateReporte);
+
+/**
+ * @swagger
+ * /api/reportes/{id}:
+ *   delete:
+ *     summary: Elimina un reporte por ID
+ *     tags: [Reportes]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: ID del reporte
+ *     responses:
+ *       200:
+ *         description: Reporte eliminado exitosamente.
+ *       404:
+ *         description: Reporte no encontrado.
+ */
+router.delete("/reportes/:id", deleteReporte);
+
+export default router;

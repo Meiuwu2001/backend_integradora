@@ -1,3 +1,4 @@
+// routes/movimientosInventario.js
 import express from "express";
 import {
   getMovimientos_inventario,
@@ -9,34 +10,162 @@ import {
 
 const router = express.Router();
 
+/**
+ * @swagger
+ * tags:
+ *   name: Movimientos de Inventario
+ *   description: API para manejar los movimientos de inventario
+ */
+
+/**
+ * @swagger
+ * /api/movimientosInventario:
+ *   get:
+ *     summary: Obtiene todos los movimientos de inventario
+ *     tags: [Movimientos de Inventario]
+ *     responses:
+ *       200:
+ *         description: Lista de movimientos de inventario obtenida exitosamente.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   id:
+ *                     type: integer
+ *                   idEquipo:
+ *                     type: integer
+ *                   idProducto:
+ *                     type: integer
+ *                   idUbicacion:
+ *                     type: integer
+ *                   cantidad:
+ *                     type: integer
+ *                   tipoMovimiento:
+ *                     type: string
+ *                   fechaMovimiento:
+ *                     type: string
+ *                     format: date-time
+ */
 router.get("/movimientosInventario", getMovimientos_inventario);
-// https://backend-integradora.vercel.app/api/movimientosInventario
+
+/**
+ * @swagger
+ * /api/movimientosInventario:
+ *   post:
+ *     summary: Crea un nuevo movimiento de inventario
+ *     tags: [Movimientos de Inventario]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               idEquipo:
+ *                 type: integer
+ *               idProducto:
+ *                 type: integer
+ *               idUbicacion:
+ *                 type: integer
+ *               cantidad:
+ *                 type: integer
+ *               tipoMovimiento:
+ *                 type: string
+ *               fechaMovimiento:
+ *                 type: string
+ *                 format: date-time
+ *     responses:
+ *       201:
+ *         description: Movimiento de inventario creado exitosamente.
+ *       400:
+ *         description: Error al crear el movimiento de inventario.
+ */
 router.post("/movimientosInventario", createMovimientosInventario);
-// https://backend-integradora.vercel.app/api/movimientosInventario
-// {
-//     "idEquipo": 1,
-//     "idProducto": 1,
-//     "idUbicacion": 1,
-//     "cantidad": 3,
-//     "tipoMovimiento": "Entrada",
-//     "fechaMovimiento": "2024-11-10 10:30:00"
-//   }
+
+/**
+ * @swagger
+ * /api/movimientosInventario/{id}:
+ *   get:
+ *     summary: Obtiene un movimiento de inventario por ID
+ *     tags: [Movimientos de Inventario]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: ID del movimiento de inventario
+ *     responses:
+ *       200:
+ *         description: Movimiento de inventario obtenido exitosamente.
+ *       404:
+ *         description: Movimiento de inventario no encontrado.
+ */
 router.get("/movimientosInventario/:id", getMovimientoInventarioById);
-// https://backend-integradora.vercel.app/api/movimientosInventario/1
+
+/**
+ * @swagger
+ * /api/movimientosInventario/{id}:
+ *   put:
+ *     summary: Actualiza un movimiento de inventario por ID
+ *     tags: [Movimientos de Inventario]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: ID del movimiento de inventario
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               idEquipo:
+ *                 type: integer
+ *               idProducto:
+ *                 type: integer
+ *               idUbicacion:
+ *                 type: integer
+ *               cantidad:
+ *                 type: integer
+ *               tipoMovimiento:
+ *                 type: string
+ *               fechaMovimiento:
+ *                 type: string
+ *                 format: date-time
+ *     responses:
+ *       200:
+ *         description: Movimiento de inventario actualizado exitosamente.
+ *       404:
+ *         description: Movimiento de inventario no encontrado.
+ */
 router.put("/movimientosInventario/:id", updateMovimientoInventario);
-// https://backend-integradora.vercel.app/api/movimientosInventario/1
-// {
-//     "idEquipo": 1,
-//     "idProducto": 1,
-//     "idUbicacion": 1,
-//     "cantidad": 3,
-//     "tipoMovimiento": "Salida",
-//     "fechaMovimiento": "2024-11-10 10:30:00"
-//   }
 
-//En los update el Json puede ir con los campos que sean siempre y cuando esten en la BD, la consulta
-//se crea depenediento del Request Body
+/**
+ * @swagger
+ * /api/movimientosInventario/{id}:
+ *   delete:
+ *     summary: Elimina un movimiento de inventario por ID
+ *     tags: [Movimientos de Inventario]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: ID del movimiento de inventario
+ *     responses:
+ *       200:
+ *         description: Movimiento de inventario eliminado exitosamente.
+ *       404:
+ *         description: Movimiento de inventario no encontrado.
+ */
 router.delete("/movimientosInventario/:id", deleteMovimiento);
-//https://backend-integradora.vercel.app/api/movimientosInventario/1
 
-export default router; // Exportación por defecto
+export default router;

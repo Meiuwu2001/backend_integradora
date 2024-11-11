@@ -12,6 +12,8 @@ import reportes from "./routes/reportes.js";
 import tareas from "./routes/tareas.js";
 import tecnicos from "./routes/tecnicos.js";
 import ubicaciones from "./routes/ubicaciones.js";
+import swaggerSpec from "./utils/api-docs.js";
+import swaggerUI from "swagger-ui-express";
 
 const app = express();
 
@@ -34,8 +36,12 @@ app.use("/api", tecnicos);
 app.use("/api", ubicaciones);
 app.use("/api/auth", authRoutes);
 
+app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerSpec));
+
 app.get("/", (req, res) => {
-  res.send("Hello, from Express on Vercel!");
+  res.send(
+    "Hello, from Express on Vercel!, Go to /api-docs for documentation."
+  );
 });
 
 // Export the app as a handler for Vercel's serverless function
