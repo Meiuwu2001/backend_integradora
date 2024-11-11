@@ -1,5 +1,6 @@
 // controllers/contactUS.js
 import connect from "../config/db.js";
+
 import { Resend } from "resend";
 
 const resend = new Resend("re_jQriAvK3_7eQxf7jhP82Y2reX6k7NUWrE");
@@ -44,13 +45,37 @@ const contactControllers = {
         to: "rancheritostech@gmail.com", // Puedes usar req.body.email si deseas enviar el correo al solicitante
         subject: "Nuevo formulario de contacto recibido",
         html: `
-          <h1>Nuevo formulario de contacto</h1>
-          <p><strong>Nombre:</strong> ${req.body.nombre}</p>
-       <p><strong>Nombre:</strong> ${req.body.apellidos}</p>
-          <p><strong>Telefono:</strong> ${req.body.telefono}</p>
-
-          <p><strong>Email:</strong> ${req.body.correo}</p>
-          <p><strong>Mensaje:</strong> ${req.body.mensaje}</p>
+          <div style="font-family: Arial, sans-serif; color: #333; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #ddd; border-radius: 8px;">
+            <h1 style="text-align: center; color: #007bff;">Nuevo formulario de contacto</h1>
+            <p style="font-size: 16px;">Hola, has recibido un nuevo mensaje de contacto con los siguientes detalles:</p>
+      
+            <table style="width: 100%; border-collapse: collapse; margin-top: 15px;">
+              <tr>
+                <td style="padding: 8px; border-bottom: 1px solid #ddd; font-weight: bold; width: 30%;">Nombre:</td>
+                <td style="padding: 8px; border-bottom: 1px solid #ddd;">${req.body.nombre}</td>
+              </tr>
+              <tr>
+                <td style="padding: 8px; border-bottom: 1px solid #ddd; font-weight: bold;">Apellidos:</td>
+                <td style="padding: 8px; border-bottom: 1px solid #ddd;">${req.body.apellidos}</td>
+              </tr>
+              <tr>
+                <td style="padding: 8px; border-bottom: 1px solid #ddd; font-weight: bold;">Teléfono:</td>
+                <td style="padding: 8px; border-bottom: 1px solid #ddd;">${req.body.telefono}</td>
+              </tr>
+              <tr>
+                <td style="padding: 8px; border-bottom: 1px solid #ddd; font-weight: bold;">Email:</td>
+                <td style="padding: 8px; border-bottom: 1px solid #ddd;">${req.body.correo}</td>
+              </tr>
+              <tr>
+                <td style="padding: 8px; border-bottom: 1px solid #ddd; font-weight: bold;">Mensaje:</td>
+                <td style="padding: 8px; border-bottom: 1px solid #ddd;">${req.body.mensaje}</td>
+              </tr>
+            </table>
+      
+            <p style="font-size: 14px; color: #666; margin-top: 20px; text-align: center;">
+              Gracias por utilizar nuestros servicios.
+            </p>
+          </div>
         `,
       });
 
