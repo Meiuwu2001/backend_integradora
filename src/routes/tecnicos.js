@@ -101,7 +101,7 @@ router.get("/tecnicos/:id", getTecnicoById);
  *     requestBody:
  *       required: true
  *       content:
-         application/json:
+ *         application/json:
  *           schema:
  *             type: object
  *             properties:
@@ -119,6 +119,7 @@ router.get("/tecnicos/:id", getTecnicoById);
  *       404:
  *         description: Técnico no encontrado.
  */
+
 router.put("/tecnicos/:id", updateTecnico);
 
 /**
