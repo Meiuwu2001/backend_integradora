@@ -11,4 +11,3 @@ router.delete("/contactUs/:id", contactControllers.deleteContactUS);
 
 export default router;
 
-// Modificar tu ruta de POST para aceptar datos y archivos
