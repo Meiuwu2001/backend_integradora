@@ -12,7 +12,7 @@ import reportes from "./routes/reportes.js";
 import tareas from "./routes/tareas.js";
 import tecnicos from "./routes/tecnicos.js";
 import ubicaciones from "./routes/ubicaciones.js";
-import { swaggerSpec } from "./api-docs.js";
+import { swaggerSpec } from "./utils/api-docs.js";
 import swaggerUI from "swagger-ui-express";
 
 const app = express();
@@ -37,6 +37,7 @@ app.use("/api", ubicaciones);
 app.use("/api/auth", authRoutes);
 
 // Sirve los archivos estáticos de Swagger UI
+app.use("/swagger-ui", express.static("public/swagger-ui-dist"));
 
 // Agrega la ruta para mostrar la documentación de la API
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerSpec));
