@@ -7,20 +7,13 @@ const swaggerOptions = {
       version: "1.0.0",
       title: "Docu API",
       description: "API Documentation for use",
+      servers: ["http://localhost", "https://backend-integradora.vercel.app"],
+      schemes: -"https" - "http",
     },
-    servers: [
-      {
-        url: process.env.VERCEL_URL
-          ? `https://${process.env.VERCEL_URL}`
-          : "http://localhost", // Asegúrate de que esta URL sea correcta
-      },
-    ],
-    schemes: ["https", "http"],
   },
-  apis: ["src/routes/*.js"], // Archivos donde están definidas las rutas de la API
+  basePath: "/",
+  apis: ["src/routes/*.js"],
 };
 
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
-
-// Cambia la exportación de default a una exportación con nombre
-export { swaggerSpec };
+export default swaggerSpec;
