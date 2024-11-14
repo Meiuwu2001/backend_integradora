@@ -4,7 +4,6 @@ import {
     getReporteTareas,
     getTecnicosUsuarios,
     getEquipoUbicacion
-    
 } from "../controllers/joins.js"
 
 const router = express.Router();
