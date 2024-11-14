@@ -6,3 +6,5 @@ import {
 const router = express.Router();
 
 router.get("/clienteusuarios", getClienteUsuario);
+
+export default router;
