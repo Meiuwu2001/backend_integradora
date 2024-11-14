@@ -12,6 +12,7 @@ import tareas from "./routes/tareas.js";
 import tecnicos from "./routes/tecnicos.js";
 import ubicaciones from "./routes/ubicaciones.js";
 import JoinsRouter from "./routes/joins.js"
+
 import swaggerSpec from "./utils/api-docs.js";
 import swaggerUI from "swagger-ui-express";
 

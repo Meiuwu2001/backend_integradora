@@ -1,7 +1,7 @@
 import express from "express";
 import {
     getClienteUsuario 
-} from "../controllers/joins"
+} from "../controllers/joins.js"
 
 const router = express.Router();
 
