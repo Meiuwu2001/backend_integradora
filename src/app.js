@@ -11,6 +11,7 @@ import reportes from "./routes/reportes.js";
 import tareas from "./routes/tareas.js";
 import tecnicos from "./routes/tecnicos.js";
 import ubicaciones from "./routes/ubicaciones.js";
+import JoinsRouter from "./routes/joins.js"
 import swaggerSpec from "./utils/api-docs.js";
 import swaggerUI from "swagger-ui-express";
 
@@ -35,6 +36,7 @@ app.use("/api", tareas);
 app.use("/api", tecnicos);
 app.use("/api", ubicaciones);
 app.use("/api/auth", authRoutes);
+app.use("/api", JoinsRouter);
 
 // Swagger documentation route
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerSpec));

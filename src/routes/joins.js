@@ -1,0 +1,8 @@
+import express from "express";
+import {
+    getClienteUsuario 
+} from "../controllers/joins"
+
+const router = express.Router();
+
+router.get("/clienteusuarios", getClienteUsuario);
