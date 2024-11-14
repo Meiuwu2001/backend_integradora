@@ -5,11 +5,9 @@ export const getProducto = async (req, res) => {
     const db = await connect();
     const [result] = await db.query("SELECT * FROM productos;");
     res.json(result);
-    await db.end();
   } catch (error) {
     console.error(error);
     res.status(500).send("Server Error");
-    await db.end();
   }
 };
 
