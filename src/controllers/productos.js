@@ -1,14 +1,15 @@
-import  connect from "../config/db.js";
-
+import connect from "../config/db.js";
 
 export const getProducto = async (req, res) => {
   try {
     const db = await connect();
     const [result] = await db.query("SELECT * FROM productos;");
     res.json(result);
+    await db.end();
   } catch (error) {
     console.error(error);
     res.status(500).send("Server Error");
+    await db.end();
   }
 };
 
@@ -17,25 +18,30 @@ export const createProducto = async (req, res) => {
     const db = await connect();
     await db.query("INSERT INTO productos SET ?", [req.body]);
     res.json({ status: "ok" });
+    await db.end();
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "An error occurred while creating data" });
+    await db.end();
   }
 };
 
 export const getProductoById = async (req, res) => {
   try {
     const db = await connect();
-    const [result] = await db.query("SELECT * FROM productos WHERE idProductos =?", [
-      req.params.id,
-    ]);
+    const [result] = await db.query(
+      "SELECT * FROM productos WHERE idProductos =?",
+      [req.params.id]
+    );
     if (!result.length) {
       return res.status(404).json({ error: "Contact not found" });
     }
     res.json(result[0]);
+    await db.end();
   } catch (error) {
     console.error(error);
     res.status(500).send("Server Error");
+    await db.end();
   }
 };
 
@@ -47,19 +53,25 @@ export const updateProducto = async (req, res) => {
       req.params.id,
     ]);
     res.json({ status: "ok" });
+    await db.end();
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "An error occurred while updating data" });
+    await db.end();
   }
 };
 
 export const deleteProducto = async (req, res) => {
   try {
     const db = await connect();
-    await db.query("DELETE FROM productos WHERE idProductos =?", [req.params.id]);
+    await db.query("DELETE FROM productos WHERE idProductos =?", [
+      req.params.id,
+    ]);
     res.json({ status: "ok" });
+    await db.end();
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "An error occurred while deleting data" });
+    await db.end();
   }
 };

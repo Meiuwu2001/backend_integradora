@@ -11,9 +11,11 @@ const contactControllers = {
       const db = await connect();
       const [result] = await db.query("SELECT * FROM contactus;");
       res.json(result);
+      await db.end(); 
     } catch (error) {
       console.error(error);
       res.status(500).send("Server Error");
+      await db.end(); 
     }
   },
 
@@ -28,9 +30,11 @@ const contactControllers = {
         return res.status(404).json({ error: "Contact not found" });
       }
       res.json(result[0]);
+      await db.end(); 
     } catch (error) {
       console.error(error);
       res.status(500).send("Server Error");
+      await db.end(); 
     }
   },
 
@@ -84,6 +88,7 @@ const contactControllers = {
       console.error(error);
       res.status(500).json({ error: "An error occurred while creating data" });
     }
+    await db.end(); 
   },
 
   updateContactUS: async (req, res) => {
@@ -98,6 +103,7 @@ const contactControllers = {
       console.error(error);
       res.status(500).json({ error: "An error occurred while updating data" });
     }
+    await db.end(); 
   },
 
   deleteContactUS: async (req, res) => {
@@ -107,10 +113,12 @@ const contactControllers = {
         req.params.id,
       ]);
       res.json({ status: "ok" });
+      await db.end(); 
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: "An error occurred while deleting data" });
     }
+    await db.end(); 
   },
 };
 
