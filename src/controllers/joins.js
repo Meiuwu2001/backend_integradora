@@ -26,7 +26,15 @@ export const getTecnicosUsuarios = async (req, res)=>{
         await db.end();
     }
 }
+export const getReporteTareas = async (req, res) => {
+   try{
+    const db = await connect(); 
+    const [result] = await db.query("SELECT  tk.Titulo,tk.Descripcion,tk.Observaciones, tk.estatus, r.folioReporte,  r.fechaHoraActualizacion as FechaModificacion FROM tareas tk  RIGHT JOIN reportes r ON r.idReporte = tk.idReportes WHERE r.idReporte = ?")
+   }catch{(error)
+    console.error(error);
+    res.status(500).send("Server Error")
+    await db.end();
 
+   }
 
-
-//a 
+}
