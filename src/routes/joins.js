@@ -10,6 +10,6 @@ const router = express.Router();
 
 router.get("/clienteusuarios", getClienteUsuario);
 router.get("/tecnicosusuarios", getTecnicosUsuarios);
-router.get("/reportetareas", getReporteTareas)
+router.get("/reportetareas/:id", getReporteTareas)
 
 export default router;
