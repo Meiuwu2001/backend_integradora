@@ -28,7 +28,7 @@ export const getProductoById = async (req, res) => {
   try {
     const db = await connect();
     const [result] = await db.query(
-      "SELECT * FROM productos WHERE idProductos =?",
+      "SELECT * FROM productos WHERE idProductos = ?",
       [req.params.id]
     );
     if (!result.length) {
