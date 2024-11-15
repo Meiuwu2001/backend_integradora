@@ -108,6 +108,6 @@ router.put("/update-password/:id", updatePassword);
 
 router.delete("/delete-user/:id", DeleteUser);
 
-router.get("getUser/:id", getUserById);
+router.get("/getUser/:id", getUserById);
 
 export default router;
