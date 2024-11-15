@@ -5,6 +5,7 @@ import {
   iniciarSesion,
   verificarToken,
   updatePassword,
+  DeleteUser,
 } from "../controllers/authController.js";
 
 const router = express.Router();
@@ -103,5 +104,9 @@ router.get("/perfil", verificarToken, (req, res) => {
 });
 
 router.put("/update-password/:id", updatePassword);
+
+router.delete("/delete-user/:id", DeleteUser);
+
+
 
 export default router;

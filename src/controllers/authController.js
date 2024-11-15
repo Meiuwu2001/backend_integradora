@@ -82,7 +82,7 @@ export const verificarToken = (req, res, next) => {
 
 export const updatePassword = async (req, res) => {
   try {
-    const  password  = req.body.password;
+    const password = req.body.password;
     const db = await connect();
     const hashedPassword = bcrypt.hashSync(password, 10);
     await db.query("UPDATE users SET password = ? WHERE idusers = ?", [
@@ -94,6 +94,20 @@ export const updatePassword = async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "An error occurred while updating data" });
+    await db.end();
+  }
+};
+
+export const DeleteUser = async (req, res) => {
+  try {
+    const db = await connect();
+    const id = req.params.id;
+    await db.query("DELETE FROM users WHERE idusers = ?", [id]);
+    res.json({ status: "Succesful Deleted" });
+    await db.end();
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "An error occurred while deleting data" });
     await db.end();
   }
 };
