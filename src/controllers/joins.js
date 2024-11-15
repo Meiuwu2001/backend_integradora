@@ -4,7 +4,7 @@ export const getClienteUsuario = async (req, res) => {
   const db = await connect();
   try {
     const [result] = await db.query(
-      "SELECT u.idusers, u.user, CONCAT(c.Nombre, ' ', c.ApellidoPa) AS Cliente, c.telefono, c.correoElectronico, c.idClientes FROM users u INNER JOIN clientes c ON u.idusers = c.users_idusers"
+      "SELECT u.idusers, u.user, CONCAT(c.Nombre, ' ', c.ApellidoPa, ' ' , c.apellidoMa) AS Cliente, c.telefono, c.correoElectronico, c.idClientes FROM users u INNER JOIN clientes c ON u.idusers = c.users_idusers"
     );
     res.json(result);
   } catch (error) {
