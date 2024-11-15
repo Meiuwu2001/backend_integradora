@@ -82,16 +82,18 @@ export const verificarToken = (req, res, next) => {
 
 export const updatePassword = async (req, res) => {
   try {
+    const  password  = req.body.password;
     const db = await connect();
-    await db.query ("UPDATE users SET password = ? WHERE idusers = ?",[
-      req.body,
+    const hashedPassword = bcrypt.hashSync(password, 10);
+    await db.query("UPDATE users SET password = ? WHERE idusers = ?", [
+      hashedPassword,
       req.params.id,
     ]);
-    res.json({ status: "ok"});
+    res.json({ status: "ok" });
     await db.end();
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "An error occurred while updating data"});
+    res.status(500).json({ error: "An error occurred while updating data" });
     await db.end();
-  }
+  }
 };
