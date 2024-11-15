@@ -63,3 +63,17 @@ export const getEquipoUbicacion = async (req, res) => {
     await db.end();
   }
 };
+
+export const getReportesAsignados = async (req, res) => {
+  const db =await connect();
+  try{
+    const [result] = await db.query(
+      "SELECT r.folioReporte,  r.fechaCreacion,   r.fechaHoraActualizacion as FechaModificacion,  r.estado AS estadoReporte, r.comentarios,  e.estatus AS estadoEquipo,  e.numeroSerie,  e.numeroEquipo,  CONCAT(t.Nombre, ' ', t.ApellidoPa) AS TecnicoAsignado, CONCAT(c.Nombre, ' ', c.ApellidoPa) AS Cliente, c.Telefono AS telefonoCliente,  c.CorreoElectronico AS correoCliente FROM  reportes r INNER JOIN equipos e ON r.idEquipos = e.idEquipos LEFT JOIN tecnicos t ON r.tecnicoAsignado = t.idTecnicos JOIN clientes c ON r.creadorReporte = c.idClientes;");
+      res.json(result);
+      await db.end();
+  }catch(error){
+    console.error(error);
+    res.status(500).send("Server Error")
+    await db.end();
+  }
+};
