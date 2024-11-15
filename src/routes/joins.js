@@ -14,6 +14,6 @@ router.get("/tecnicosusuarios", getTecnicosUsuarios);
 router.get("/reportetareas/:id", getReporteTareas);
 router.get("/equipoubicacion", getEquipoUbicacion);
 router.get("/reportesasignados", getReportesAsignados);
-router.get("/historialmovimientos", getHistorialMovimientos);
+router.get("/historialmovimientos/:id", getHistorialMovimientos);
 
 export default router;
