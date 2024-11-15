@@ -118,7 +118,7 @@ export const getUserById = async (req, res) => {
     const [result] = await db.query("SELECT user FROM users WHERE idusers =?", [
       req.params.id,
     ]);
-    res.json(result);
+    res.json(result[0]);
     await db.end();
   } catch (error) {
     console.error(error);
