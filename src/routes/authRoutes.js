@@ -102,6 +102,6 @@ router.get("/perfil", verificarToken, (req, res) => {
   res.json({ mensaje: "Acceso autorizado", usuario: req.usuario });
 });
 
-router.put("/update-password", updatePassword);
+router.put("/update-password/:id", updatePassword);
 
 export default router;
