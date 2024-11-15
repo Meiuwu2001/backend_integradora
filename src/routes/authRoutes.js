@@ -6,6 +6,7 @@ import {
   verificarToken,
   updatePassword,
   DeleteUser,
+  getUserById,
 } from "../controllers/authController.js";
 
 const router = express.Router();
@@ -107,6 +108,6 @@ router.put("/update-password/:id", updatePassword);
 
 router.delete("/delete-user/:id", DeleteUser);
 
-
+router.get("getUser/:id", getUserById);
 
 export default router;

@@ -111,3 +111,18 @@ export const DeleteUser = async (req, res) => {
     await db.end();
   }
 };
+
+export const getUserById = async (req, res) => {
+  try {
+    const db = await connect();
+    const [result] = await db.query("SELECT user FROM users WHERE idusers =?", [
+      req.params.id,
+    ]);
+    res.json(result);
+    await db.end();
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "An error occurred while getting data" });
+    await db.end();
+  }
+};
