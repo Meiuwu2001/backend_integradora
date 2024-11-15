@@ -109,3 +109,60 @@ export const getTecnicosActivosReportesPendientes = async (req, res) => {
   }
 };
 
+export const getReporteClientes = async (req, res) => {
+  const db = await connect();
+  try {
+    const [result] = await db.query(
+      "SELECT   r.folioReporte, r.fechaCreacion, r.fechaHoraActualizacion AS fechaModificacion,  r.estado, r.comentarios, CONCAT(c.Nombre, ' ', c.ApellidoPa, ' ', c.ApellidoMa) AS nombreCliente, e.numeroEquipo, e.numeroSerie, CONCAT(t.Nombre, ' ', t.ApellidoPa,' ', t.ApellidoMa) AS tecnicoAsignado FROM  reportes r INNER JOIN clientes c ON r.creadorReporte = c.idClientes LEFT JOIN equipos e ON r.idEquipos = e.idEquipos  LEFT JOIN tecnicos t ON r.tecnicoAsignado = t.idTecnicos WHERE c.idClientes = ?;",
+      [req.params.id]
+    );
+    if (!result.length) {
+      return res.status(404).json({ error: "Reporte not found" });
+    }
+    res.json(result[0]);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Server Error");
+  } finally {
+    await db.end();
+  }
+};
+
+export const getTareasReporte = async (req, res) => {
+  const db = await connect();
+  try {
+    const [result] = await db.query(
+      "SELECT tk.Titulo,    tk.Descripcion,tk.Observaciones,tk.estatus AS estatusTarea, r.folioReporte,r.fechaCreacion, r.fechaHoraActualizacion AS fechaModificacion,CONCAT(c.Nombre, ' ', c.ApellidoPa) AS nombreCliente,CONCAT(t.Nombre, ' ', t.ApellidoPa) AS tecnicoAsignado FROM  tareas tk INNER JOIN reportes r ON tk.idReportes = r.idReporte LEFT JOIN clientes c ON r.creadorReporte = c.idClientes LEFT JOIN tecnicos t ON r.tecnicoAsignado = t.idTecnicos WHERE r.idReporte = ?;",  
+      [req.params.id]
+    );
+    if (!result.length) {
+      return res.status(404).json({ error: "Reporte not found" });
+    }
+    res.json(result[0]);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Server Error");
+  } finally {
+    await db.end();
+  }
+};
+
+export const getEquiposUbicacionById = async (req, res) => {
+  const db = await connect();
+  try {
+    const [result] = await db.query(
+      "SELECT   e.numeroEquipo, e.numeroSerie, e.estatus AS estatusEquipo,p.modelo,p.categoria,p.marca,ub.nombre AS nombreUbicacion,ub.ciudad,ub.estado,ub.codigoPostal,  ub.direccion FROM equipos e LEFT JOIN productos p ON e.idProductos = p.idProductos LEFT JOIN ubicaciones ub ON e.idUbicaciones = ub.idUbicaciones WHERE ub.idUbicaciones = ?;",
+      [req.params.id]
+    );
+    if (!result.length) {
+      return res.status(404).json({ error: "Reporte not found" });
+    }
+    res.json(result[0]);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Server Error");
+  } finally {
+    await db.end();
+  }
+};
+
