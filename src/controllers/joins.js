@@ -94,3 +94,18 @@ export const getHistorialMovimientos = async (req, res) => {
     await db.end();
   }
 };
+
+export const getTecnicosActivosReportesPendientes = async (req, res) => {
+  const db = await connect();
+  try {
+    const [result] = await db.query(
+      "SELECT CONCAT(t.Nombre, ' ', t.ApellidoPa) AS nombreTecnico, t.Telefono, r.folioReporte, r.estado, r.fechaCreacion, e.numeroEquipo, e.numeroSerie FROM tecnicos t LEFT JOIN reportes r ON t.idTecnicos = r.tecnicoAsignado LEFT JOIN equipos e ON r.idEquipos = e.idEquipos WHERE  t.Estatus = 'activo' AND r.estado = 'pendiente';");
+    res.json(result);
+    await db.end();
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Server Error");
+    await db.end();
+  }
+};
+

@@ -6,6 +6,7 @@ import {
   getEquipoUbicacion,
   getReportesAsignados,
   getHistorialMovimientos,
+  getTecnicosActivosReportesPendientes,
 } from "../controllers/joins.js";
 
 const router = express.Router();
@@ -15,5 +16,6 @@ router.get("/reportetareas/:id", getReporteTareas);
 router.get("/equipoubicacion", getEquipoUbicacion);
 router.get("/reportesasignados", getReportesAsignados);
 router.get("/historialmovimientos/:id", getHistorialMovimientos);
+router.get("/tecnicosactivosreportespendientes", getTecnicosActivosReportesPendientes);
 
 export default router;
