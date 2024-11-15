@@ -180,4 +180,4 @@ WHERE
     AND r.estado = 'pendiente';
 
 
--- UPDATE users SET password = ? WHERE idusers = ? 
+-- UPDATE users SET password = ? WHERE idusers = ?
