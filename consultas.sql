@@ -178,3 +178,6 @@ FROM
 WHERE
     t.Estatus = 'activo'
     AND r.estado = 'pendiente';
+
+
+UPDATE users SET password = ? WHERE idusers = ? 
