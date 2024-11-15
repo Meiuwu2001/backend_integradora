@@ -1,7 +1,7 @@
 // routes/clientes.js
 import express from "express";
 import {
-  getCliente,
+  getClientes,
   createCliente,
   getClienteById,
   updateCliente,
@@ -46,7 +46,7 @@ const router = express.Router();
  *                   CorreoElectronico:
  *                     type: string
  */
-router.get("/clientes", getCliente);
+router.get("/clientes", getClientes);
 
 /**
  * @swagger
