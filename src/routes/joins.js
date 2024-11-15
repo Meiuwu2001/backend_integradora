@@ -20,8 +20,8 @@ router.get("/equipoubicacion", getEquipoUbicacion);
 router.get("/reportesasignados", getReportesAsignados);
 router.get("/historialmovimientos/:id", getHistorialMovimientos);
 router.get("/tecnicosactivosreportespendientes", getTecnicosActivosReportesPendientes);
-router.get("/reportesclientes", getReporteClientes);
-router.get("/tareasreportes", getTareasReporte);
-router.get("/equiposenubicacion",getEquiposUbicacionById);
+router.get("/reportesclientes/:id", getReporteClientes);
+router.get("/tareasreportes/:id", getTareasReporte);
+router.get("/equiposenubicacion/id:",getEquiposUbicacionById);
 
 export default router;
