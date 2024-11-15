@@ -45,42 +45,42 @@
 --     r.idReporte = ?
 
 
-SELECT
-    e.numeroEquipo,
-    e.numeroSerie,
-    e.estatus AS estatusEquipo,
-    p.modelo AS modeloProducto,
-    p.categoria AS categoriaProducto,
-    p.marca AS marcaProducto,
-    mi.tipoMovimiento,
-    mi.cantidad,
-    mi.fechaMovimiento,
-    ub.nombre AS ubicacionDestino,
-    ub.ciudad,
-    ub.estado,
-    ub.codigoPostal,
-    ub.direccion
-FROM
-    movimientos_inventario mi
-    INNER JOIN equipos e ON mi.idEquipo = e.idEquipos
-    LEFT JOIN productos p ON e.idProductos = p.idProductos
-    LEFT JOIN ubicaciones ub ON mi.idUbicacion = ub.idUbicaciones
-WHERE
-    e.idEquipos = ? 
-ORDER BY
-    mi.fechaMovimiento DESC;
+-- SELECT
+--     e.numeroEquipo,
+--     e.numeroSerie,
+--     e.estatus AS estatusEquipo,
+--     p.modelo AS modeloProducto,
+--     p.categoria AS categoriaProducto,
+--     p.marca AS marcaProducto,
+--     mi.tipoMovimiento,
+--     mi.cantidad,
+--     mi.fechaMovimiento,
+--     ub.nombre AS ubicacionDestino,
+--     ub.ciudad,
+--     ub.estado,
+--     ub.codigoPostal,
+--     ub.direccion
+-- FROM
+--     movimientos_inventario mi
+--     INNER JOIN equipos e ON mi.idEquipo = e.idEquipos
+--     LEFT JOIN productos p ON e.idProductos = p.idProductos
+--     LEFT JOIN ubicaciones ub ON mi.idUbicacion = ub.idUbicaciones
+-- WHERE
+--     e.idEquipos = ? 
+-- ORDER BY
+--     mi.fechaMovimiento DESC;
 
---ESTA PERFECTO 
+--ESTA PERFECTO   este si
 SELECT
     r.folioReporte,
     r.fechaCreacion,
     r.fechaHoraActualizacion AS fechaModificacion,
     r.estado,
     r.comentarios,
-    CONCAT(c.Nombre, ' ', c.ApellidoPa) AS nombreCliente,
+    CONCAT(c.Nombre, ' ', c.ApellidoPa, ' ', c.ApellidoMa) AS nombreCliente,
     e.numeroEquipo,
     e.numeroSerie,
-    CONCAT(t.Nombre, ' ', t.ApellidoPa) AS tecnicoAsignado
+    CONCAT(t.Nombre, ' ', t.ApellidoPa,' ', t.ApellidoMa) AS tecnicoAsignado
 FROM
     reportes r
     INNER JOIN clientes c ON r.creadorReporte = c.idClientes
@@ -88,7 +88,7 @@ FROM
     LEFT JOIN tecnicos t ON r.tecnicoAsignado = t.idTecnicos
 WHERE
     c.idClientes = ?;
-
+--- NO se para que era este no
 SELECT
     mi.tipoMovimiento,
     mi.cantidad,
@@ -110,7 +110,7 @@ FROM
     LEFT JOIN ubicaciones ub ON mi.idUbicacion = ub.idUbicaciones
 WHERE
     p.idProductos = ?;
-
+--- tareas de un reporte  este si
 SELECT
     tk.Titulo,
     tk.Descripcion,
@@ -128,7 +128,7 @@ FROM
     LEFT JOIN tecnicos t ON r.tecnicoAsignado = t.idTecnicos
 WHERE
     r.idReporte = ?;
-
+-- equipos en una ubicacion este si
 SELECT
     e.numeroEquipo,
     e.numeroSerie,
@@ -147,7 +147,7 @@ FROM
     LEFT JOIN ubicaciones ub ON e.idUbicaciones = ub.idUbicaciones
 WHERE
     ub.idUbicaciones = ?;
-
+--este no 
 SELECT
     r.folioReporte,
     r.fechaCreacion,
@@ -162,7 +162,7 @@ FROM
     LEFT JOIN tareas tk ON r.idReporte = tk.idReportes
 WHERE
     tk.estatus != 'finalizada'; 
-
+--- este si era para ver reportes pendeintes y tecnicos disponibles
 SELECT
     CONCAT(t.Nombre, ' ', t.ApellidoPa) AS nombreTecnico,
     t.Telefono,
