@@ -13,20 +13,6 @@ export const getEquipo = async (req, res) => {
   }
 };
 
-export const getEquipoUbicacion = async (req, res) => {
-  try {
-    const db = await connect();
-    const [result] = await db.query(
-      "SELECT e.IdEquipos, p.modelo, p.categoria, p.marca, e.numeroSerie, e.numeroEquipo, e.estatus, ub.nombre, ub.ciudad, ub.estado, ub.codigoPostal, ub.direccion FROM productos p RIGHT JOIN equipos e ON p.idProductos = e.idProductos  LEFT JOIN ubicaciones ub ON e.idUbicaciones = ub.idUbicaciones"
-    );
-    res.json(result);
-    await db.end(); 
-  } catch (error) {
-    console.error(error);
-    res.status(500).send("Server Error");
-    await db.end(); 
-  }
-};
 
 export const createEquipo = async (req, res) => {
   try {

@@ -6,10 +6,10 @@ import { secret, expiresIn } from "../config/jwt.js";
 // Registrar un usuario
 export const registrar = async (req, res) => {
   const { user, password, rol } = req.body;
+  const connection = await connect(); // Conectar a la DB
 
   try {
     const hashedPassword = bcrypt.hashSync(password, 10);
-    const connection = await connect(); // Conectar a la DB
 
     const query = "INSERT INTO users (user, password, rol) VALUES (?, ?, ?)";
     const [result] = await connection.execute(query, [
@@ -18,15 +18,15 @@ export const registrar = async (req, res) => {
       rol,
     ]);
 
-    await connection.end(); // Cerrar conexión
-
     res.status(201).json({
       mensaje: "Usuario registrado exitosamente",
-      userId: result.insertId,
+      userId: result.insertId, // Enviar el idusers en la respuesta
     });
   } catch (error) {
     console.error("Error al registrar usuario:", error);
     res.status(500).json({ mensaje: "Error al registrar usuario", error });
+  } finally {
+    await connection.end(); // Cerrar conexión
   }
 };
 

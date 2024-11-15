@@ -2,7 +2,6 @@
 import express from "express";
 import {
   getEquipo,
-  getEquipoUbicacion,
   createEquipo,
   getEquipoById,
   updateEquipo,
@@ -49,7 +48,6 @@ const router = express.Router();
  */
 router.get("/equipos", getEquipo);
 
-router.get("/getEquipoUbicaciones", getEquipoUbicacion);
 /**
  * @swagger
  * /api/equipos:

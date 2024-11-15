@@ -17,32 +17,32 @@ FROM
     LEFT JOIN tecnicos t ON r.tecnicoAsignado = t.idTecnicos
     JOIN clientes c ON r.creadorReporte = c.idClientes;
 
-SELECT u.user, CONCAT(t.Nombre, ' ', t.ApellidoPa) AS Tecnico, t.estatus
-FROM users u
-    INNER JOIN tecnicos t ON u.idusers = t.users_idusers
+-- SELECT u.user, CONCAT(t.Nombre, ' ', t.ApellidoPa) AS Tecnico, t.estatus
+-- FROM users u
+--     INNER JOIN tecnicos t ON u.idusers = t.users_idusers
 
-SELECT u.user, CONCAT(c.Nombre, ' ', c.ApellidoPa) AS Cliente, c.telefono, c.correoElectronico
-FROM users u
-    INNER JOIN clientes c ON u.idusers = c.users_idusers
+-- SELECT u.user, CONCAT(c.Nombre, ' ', c.ApellidoPa) AS Cliente, c.telefono, c.correoElectronico
+-- FROM users u
+--     INNER JOIN clientes c ON u.idusers = c.users_idusers
 
-SELECT p.modelo, p.categoria, p.marca, e.numeroSerie, e.numeroEquipo, e.estatus, ub.nombre, ub.ciudad, ub.estado, ub.codigoPostal, ub.direccion
-FROM
-    productos p
-    RIGHT JOIN equipos e ON p.idProductos = e.idProductos
-    LEFT JOIN ubicaciones ub ON e.idUbicaciones = ub.idUbicaciones
+-- SELECT p.modelo, p.categoria, p.marca, e.numeroSerie, e.numeroEquipo, e.estatus, ub.nombre, ub.ciudad, ub.estado, ub.codigoPostal, ub.direccion
+-- FROM
+--     productos p
+--     RIGHT JOIN equipos e ON p.idProductos = e.idProductos
+--     LEFT JOIN ubicaciones ub ON e.idUbicaciones = ub.idUbicaciones
 
-SELECT
-    tk.Titulo,
-    tk.Descripcion,
-    tk.Observaciones,
-    tk.estatus,
-    r.folioReporte,
-    r.fechaCreacion,
-    r.fechaHoraActualizacion as FechaModificacion
-FROM tareas tk
-    RIGHT JOIN reportes r ON r.idReporte = tk.idReportes
-WHERE
-    r.idReporte = ?
+-- SELECT
+--     tk.Titulo,
+--     tk.Descripcion,
+--     tk.Observaciones,
+--     tk.estatus,
+--     r.folioReporte,
+--     r.fechaCreacion,
+--     r.fechaHoraActualizacion as FechaModificacion
+-- FROM tareas tk
+--     RIGHT JOIN reportes r ON r.idReporte = tk.idReportes
+-- WHERE
+--     r.idReporte = ?
 
 
 SELECT
