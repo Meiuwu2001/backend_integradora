@@ -23,5 +23,5 @@ router.get("/tecnicosactivosreportespendientes", getTecnicosActivosReportesPendi
 router.get("/reportesclientes/:id", getReporteClientes);
 router.get("/tareasreportes/:id", getTareasReporte);
 router.get("/equiposenubicacion/:id",getEquiposUbicacionById);
-
+//d
 export default router;
