@@ -6,6 +6,7 @@ import {
   verificarToken,
   updatePassword,
 } from "../controllers/authController.js";
+
 const router = express.Router();
 
 /**
@@ -101,5 +102,6 @@ router.get("/perfil", verificarToken, (req, res) => {
   res.json({ mensaje: "Acceso autorizado", usuario: req.usuario });
 });
 
-router.put("/updatecontraseña", updatePassword);
+router.put("/update-password", updatePassword);
+
 export default router;

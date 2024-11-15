@@ -93,6 +93,5 @@ export const updatePassword = async (req, res) => {
     console.error(error);
     res.status(500).json({ error: "An error occurred while updating data"});
     await db.end();
-
   }
 };
