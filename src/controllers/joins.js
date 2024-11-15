@@ -77,3 +77,17 @@ export const getReportesAsignados = async (req, res) => {
     await db.end();
   }
 };
+
+export const getHistorialMovimientos = async (req, res) => {
+  const db =await connect();
+  try{
+    const [result] = await db.query(
+      "SELECT e.numeroEquipo,e.numeroSerie,e.estatus AS estatusEquipo, p.modelo AS modeloProducto, p.categoria AS categoriaProducto,  p.marca AS marcaProducto, mi.tipoMovimiento, mi.cantidad,mi.fechaMovimiento,  ub.nombre AS ubicacionDestino, ub.ciudad, ub.estado, ub.codigoPostal, ub.direccion FROM movimientos_inventario mi INNER JOIN equipos e ON mi.idEquipo = e.idEquipos LEFT JOIN productos p ON e.idProductos = p.idProductos LEFT JOIN ubicaciones ub ON mi.idUbicacion = ub.idUbicaciones WHERE  e.idEquipos = ? ORDER BY  mi.fechaMovimiento DESC;");
+      res.json(result);
+      await db.end();
+  }catch(error){
+    console.error(error);
+    res.status(500).send("Server Error")
+    await db.end();
+  }
+};

@@ -1,21 +1,21 @@
-SELECT
-    r.folioReporte,
-    r.fechaCreacion,
-    r.fechaHoraActualizacion as FechaModificacion,
-    r.estado AS estadoReporte,
-    r.comentarios,
-    e.estatus AS estadoEquipo,
-    e.numeroSerie,
-    e.numeroEquipo,
-    CONCAT(t.Nombre, ' ', t.ApellidoPa) AS TecnicoAsignado,
-    CONCAT(c.Nombre, ' ', c.ApellidoPa) AS Cliente,
-    c.Telefono AS telefonoCliente,
-    c.CorreoElectronico AS correoCliente
-FROM
-    reportes r
-    INNER JOIN equipos e ON r.idEquipos = e.idEquipos
-    LEFT JOIN tecnicos t ON r.tecnicoAsignado = t.idTecnicos
-    JOIN clientes c ON r.creadorReporte = c.idClientes;
+-- SELECT
+--     r.folioReporte,
+--     r.fechaCreacion,
+--     r.fechaHoraActualizacion as FechaModificacion,
+--     r.estado AS estadoReporte,
+--     r.comentarios,
+--     e.estatus AS estadoEquipo,
+--     e.numeroSerie,
+--     e.numeroEquipo,
+--     CONCAT(t.Nombre, ' ', t.ApellidoPa) AS TecnicoAsignado,
+--     CONCAT(c.Nombre, ' ', c.ApellidoPa) AS Cliente,
+--     c.Telefono AS telefonoCliente,
+--     c.CorreoElectronico AS correoCliente
+-- FROM
+--     reportes r
+--     INNER JOIN equipos e ON r.idEquipos = e.idEquipos
+--     LEFT JOIN tecnicos t ON r.tecnicoAsignado = t.idTecnicos
+--     JOIN clientes c ON r.creadorReporte = c.idClientes;
 
 -- SELECT u.user, CONCAT(t.Nombre, ' ', t.ApellidoPa) AS Tecnico, t.estatus
 -- FROM users u
