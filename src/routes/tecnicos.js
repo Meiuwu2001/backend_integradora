@@ -7,6 +7,7 @@ import {
   updateTecnico,
   deleteTecnico,
 } from "../controllers/tecnicos.js";
+import { verificarToken } from "../controllers/authController.js";
 
 const router = express.Router();
 
@@ -33,7 +34,7 @@ const router = express.Router();
  *               items:
  *                 type: object
  */
-router.get("/tecnicos", getTecnico);
+router.get("/tecnicos", verificarToken, getTecnico);
 
 /**
  * @swagger
@@ -62,7 +63,7 @@ router.get("/tecnicos", getTecnico);
  *       400:
  *         description: Error al crear el técnico.
  */
-router.post("/tecnicos", createTecnico);
+router.post("/tecnicos", verificarToken, createTecnico);
 
 /**
  * @swagger
@@ -83,7 +84,7 @@ router.post("/tecnicos", createTecnico);
  *       404:
  *         description: Técnico no encontrado.
  */
-router.get("/tecnicos/:id", getTecnicoById);
+router.get("/tecnicos/:id", verificarToken, getTecnicoById);
 
 /**
  * @swagger
@@ -120,7 +121,7 @@ router.get("/tecnicos/:id", getTecnicoById);
  *         description: Técnico no encontrado.
  */
 
-router.put("/tecnicos/:id", updateTecnico);
+router.put("/tecnicos/:id", verificarToken, updateTecnico);
 
 /**
  * @swagger
@@ -141,6 +142,6 @@ router.put("/tecnicos/:id", updateTecnico);
  *       404:
  *         description: Técnico no encontrado.
  */
-router.delete("/tecnicos/:id", deleteTecnico);
+router.delete("/tecnicos/:id", verificarToken, deleteTecnico);
 
 export default router;

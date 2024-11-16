@@ -7,6 +7,7 @@ import {
   updateTarea,
   deleteTarea,
 } from "../controllers/tareas.js";
+import { verificarToken } from "../controllers/authController.js";
 
 const router = express.Router();
 
@@ -33,7 +34,7 @@ const router = express.Router();
  *               items:
  *                 type: object
  */
-router.get("/tareas", getTarea);
+router.get("/tareas", verificarToken, getTarea);
 
 /**
  * @swagger
@@ -64,7 +65,7 @@ router.get("/tareas", getTarea);
  *       400:
  *         description: Error al crear la tarea.
  */
-router.post("/tareas", createTarea);
+router.post("/tareas", verificarToken, createTarea);
 
 /**
  * @swagger
@@ -85,7 +86,7 @@ router.post("/tareas", createTarea);
  *       404:
  *         description: Tarea no encontrada.
  */
-router.get("/tareas/:id", getTareaById);
+router.get("/tareas/:id",  verificarToken, getTareaById);
 
 /**
  * @swagger
@@ -123,7 +124,7 @@ router.get("/tareas/:id", getTareaById);
  *       404:
  *         description: Tarea no encontrada.
  */
-router.put("/tareas/:id", updateTarea);
+router.put("/tareas/:id", verificarToken, updateTarea);
 
 /**
  * @swagger
@@ -144,6 +145,6 @@ router.put("/tareas/:id", updateTarea);
  *       404:
  *         description: Tarea no encontrada.
  */
-router.delete("/tareas/:id", deleteTarea);
+router.delete("/tareas/:id", verificarToken, deleteTarea);
 
 export default router;

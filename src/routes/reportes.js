@@ -7,6 +7,7 @@ import {
   updateReporte,
   deleteReporte,
 } from "../controllers/reportes.js";
+import { verificarToken } from "../controllers/authController.js";
 
 const router = express.Router();
 
@@ -33,7 +34,7 @@ const router = express.Router();
  *               items:
  *                 type: object
  */
-router.get("/reportes", getReporte);
+router.get("/reportes", verificarToken, getReporte);
 
 /**
  * @swagger
@@ -72,7 +73,7 @@ router.get("/reportes", getReporte);
  *       400:
  *         description: Error al crear el reporte.
  */
-router.post("/reportes", createReporte);
+router.post("/reportes", verificarToken, createReporte);
 
 /**
  * @swagger
@@ -93,7 +94,7 @@ router.post("/reportes", createReporte);
  *       404:
  *         description: Reporte no encontrado.
  */
-router.get("/reportes/:id", getReporteById);
+router.get("/reportes/:id", verificarToken, getReporteById);
 
 /**
  * @swagger
@@ -139,7 +140,7 @@ router.get("/reportes/:id", getReporteById);
  *       404:
  *         description: Reporte no encontrado.
  */
-router.put("/reportes/:id", updateReporte);
+router.put("/reportes/:id", verificarToken, updateReporte);
 
 /**
  * @swagger
@@ -160,6 +161,6 @@ router.put("/reportes/:id", updateReporte);
  *       404:
  *         description: Reporte no encontrado.
  */
-router.delete("/reportes/:id", deleteReporte);
+router.delete("/reportes/:id", verificarToken, deleteReporte);
 
 export default router;

@@ -7,6 +7,7 @@ import {
   updateUbicacion,
   deleteUbicacion,
 } from "../controllers/ubicaciones.js";
+import { verificarToken } from "../controllers/authController.js";
 
 const router = express.Router();
 
@@ -33,7 +34,7 @@ const router = express.Router();
  *               items:
  *                 type: object
  */
-router.get("/ubicacion", getUbicacion);
+router.get("/ubicacion", verificarToken, getUbicacion);
 
 /**
  * @swagger
@@ -64,7 +65,7 @@ router.get("/ubicacion", getUbicacion);
  *       400:
  *         description: Error al crear la ubicación.
  */
-router.post("/ubicacion", createUbicacion);
+router.post("/ubicacion",  verificarToken, createUbicacion);
 
 /**
  * @swagger
@@ -85,7 +86,7 @@ router.post("/ubicacion", createUbicacion);
  *       404:
  *         description: Ubicación no encontrada.
  */
-router.get("/ubicacion/:id", getUbicacionById);
+router.get("/ubicacion/:id", verificarToken,  getUbicacionById);
 
 /**
  * @swagger
@@ -123,7 +124,7 @@ router.get("/ubicacion/:id", getUbicacionById);
  *       404:
  *         description: Ubicación no encontrada.
  */
-router.put("/ubicacion/:id", updateUbicacion);
+router.put("/ubicacion/:id", verificarToken, updateUbicacion);
 
 /**
  * @swagger
@@ -144,6 +145,6 @@ router.put("/ubicacion/:id", updateUbicacion);
  *       404:
  *         description: Ubicación no encontrada.
  */
-router.delete("/ubicacion/:id", deleteUbicacion);
+router.delete("/ubicacion/:id", verificarToken, deleteUbicacion);
 
 export default router;

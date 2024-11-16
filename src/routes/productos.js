@@ -7,6 +7,7 @@ import {
   updateProducto,
   deleteProducto,
 } from "../controllers/productos.js";
+import { verificarToken } from "../controllers/authController.js";
 
 const router = express.Router();
 
@@ -48,7 +49,7 @@ const router = express.Router();
  *                   Caracteristicas:
  *                     type: string
  */
-router.get("/productos", getProducto);
+router.get("/productos", verificarToken, getProducto);
 
 /**
  * @swagger
@@ -81,7 +82,7 @@ router.get("/productos", getProducto);
  *       400:
  *         description: Error al crear el producto.
  */
-router.post("/productos", createProducto);
+router.post("/productos",  verificarToken,createProducto);
 
 /**
  * @swagger
@@ -102,7 +103,7 @@ router.post("/productos", createProducto);
  *       404:
  *         description: Producto no encontrado.
  */
-router.get("/productos/:id", getProductoById);
+router.get("/productos/:id", verificarToken, getProductoById);
 
 /**
  * @swagger
@@ -142,7 +143,7 @@ router.get("/productos/:id", getProductoById);
  *       404:
  *         description: Producto no encontrado.
  */
-router.put("/productos/:id", updateProducto);
+router.put("/productos/:id", verificarToken, updateProducto);
 
 /**
  * @swagger
@@ -163,6 +164,6 @@ router.put("/productos/:id", updateProducto);
  *       404:
  *         description: Producto no encontrado.
  */
-router.delete("/productos/:id", deleteProducto);
+router.delete("/productos/:id", verificarToken, deleteProducto);
 
 export default router;

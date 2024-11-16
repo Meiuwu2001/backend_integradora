@@ -81,7 +81,7 @@ export const verificarToken = (req, res, next) => {
     return res.status(403).json({ mensaje: "Token no proporcionado" });
 
   try {
-    const decoded = jwt.verify(token, "clave_secreta"); // Reemplaza 'clave_secreta' con la clave usada para firmar
+    const decoded = jwt.verify(token, secret); // Reemplaza 'clave_secreta' con la clave usada para firmar
     req.usuario = decoded; // Asigna la información decodificada al request
     next();
   } catch (err) {

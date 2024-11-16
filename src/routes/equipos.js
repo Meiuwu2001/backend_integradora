@@ -7,6 +7,7 @@ import {
   updateEquipo,
   deleteEquipo,
 } from "../controllers/equipos.js";
+import { verificarToken } from "../controllers/authController.js";
 
 const router = express.Router();
 
@@ -46,7 +47,7 @@ const router = express.Router();
  *                   idUbicaciones:
  *                     type: integer
  */
-router.get("/equipos", getEquipo);
+router.get("/equipos", verificarToken, getEquipo);
 
 /**
  * @swagger
@@ -77,7 +78,7 @@ router.get("/equipos", getEquipo);
  *       400:
  *         description: Error en la creación del equipo.
  */
-router.post("/equipos", createEquipo);
+router.post("/equipos", verificarToken, createEquipo);
 
 /**
  * @swagger
@@ -98,7 +99,7 @@ router.post("/equipos", createEquipo);
  *       404:
  *         description: Equipo no encontrado.
  */
-router.get("/equipos/:id", getEquipoById);
+router.get("/equipos/:id", verificarToken, getEquipoById);
 
 /**
  * @swagger
@@ -136,7 +137,7 @@ router.get("/equipos/:id", getEquipoById);
  *       404:
  *         description: Equipo no encontrado.
  */
-router.put("/equipos/:id", updateEquipo);
+router.put("/equipos/:id", verificarToken, updateEquipo);
 
 /**
  * @swagger
@@ -157,6 +158,6 @@ router.put("/equipos/:id", updateEquipo);
  *       404:
  *         description: Equipo no encontrado.
  */
-router.delete("/equipos/:id", deleteEquipo);
+router.delete("/equipos/:id", verificarToken, deleteEquipo);
 
 export default router;

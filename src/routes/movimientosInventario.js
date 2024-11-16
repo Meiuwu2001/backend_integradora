@@ -7,6 +7,7 @@ import {
   updateMovimientoInventario,
   deleteMovimiento,
 } from "../controllers/movimientosInventario.js";
+import { verificarToken } from "../controllers/authController.js";
 
 const router = express.Router();
 
@@ -49,7 +50,7 @@ const router = express.Router();
  *                     type: string
  *                     format: date-time
  */
-router.get("/movimientosInventario", getMovimientos_inventario);
+router.get("/movimientosInventario", verificarToken, getMovimientos_inventario);
 
 /**
  * @swagger
@@ -83,7 +84,7 @@ router.get("/movimientosInventario", getMovimientos_inventario);
  *       400:
  *         description: Error al crear el movimiento de inventario.
  */
-router.post("/movimientosInventario", createMovimientosInventario);
+router.post("/movimientosInventario", verificarToken, createMovimientosInventario);
 
 /**
  * @swagger
@@ -104,7 +105,7 @@ router.post("/movimientosInventario", createMovimientosInventario);
  *       404:
  *         description: Movimiento de inventario no encontrado.
  */
-router.get("/movimientosInventario/:id", getMovimientoInventarioById);
+router.get("/movimientosInventario/:id", verificarToken, getMovimientoInventarioById);
 
 /**
  * @swagger
@@ -145,7 +146,7 @@ router.get("/movimientosInventario/:id", getMovimientoInventarioById);
  *       404:
  *         description: Movimiento de inventario no encontrado.
  */
-router.put("/movimientosInventario/:id", updateMovimientoInventario);
+router.put("/movimientosInventario/:id", verificarToken, updateMovimientoInventario);
 
 /**
  * @swagger
@@ -166,6 +167,6 @@ router.put("/movimientosInventario/:id", updateMovimientoInventario);
  *       404:
  *         description: Movimiento de inventario no encontrado.
  */
-router.delete("/movimientosInventario/:id", deleteMovimiento);
+router.delete("/movimientosInventario/:id", verificarToken, deleteMovimiento);
 
 export default router;

@@ -18,7 +18,7 @@ router.get("/clienteusuarios", verificarToken, getClienteUsuario);
 router.get("/tecnicosusuarios", verificarToken, getTecnicosUsuarios);
 router.get("/reportetareas/:id", verificarToken, getReporteTareas);
 router.get("/equipoubicacion", verificarToken, getEquipoUbicacion);
-router.get("/reportesCreados", getReportesAsignados);
+router.get("/reportesCreados",verificarToken, getReportesAsignados);
 router.get(
   "/historialmovimientos/:id",
   verificarToken,

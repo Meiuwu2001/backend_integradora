@@ -7,6 +7,7 @@ import {
   updateCliente,
   deleteCliente,
 } from "../controllers/clientes.js";
+import { verificarToken } from "../controllers/authController.js";
 
 const router = express.Router();
 
@@ -46,7 +47,7 @@ const router = express.Router();
  *                   CorreoElectronico:
  *                     type: string
  */
-router.get("/clientes", getClientes);
+router.get("/clientes", verificarToken, getClientes);
 
 /**
  * @swagger
@@ -77,7 +78,7 @@ router.get("/clientes", getClientes);
  *       400:
  *         description: Error en la creación del cliente.
  */
-router.post("/clientes", createCliente);
+router.post("/clientes", verificarToken, createCliente);
 
 /**
  * @swagger
@@ -98,7 +99,7 @@ router.post("/clientes", createCliente);
  *       404:
  *         description: Cliente no encontrado.
  */
-router.get("/clientes/:id", getClienteById);
+router.get("/clientes/:id", verificarToken, getClienteById);
 
 /**
  * @swagger
@@ -136,7 +137,7 @@ router.get("/clientes/:id", getClienteById);
  *       404:
  *         description: Cliente no encontrado.
  */
-router.put("/clientes/:id", updateCliente);
+router.put("/clientes/:id", verificarToken, updateCliente);
 
 /**
  * @swagger
@@ -157,6 +158,6 @@ router.put("/clientes/:id", updateCliente);
  *       404:
  *         description: Cliente no encontrado.
  */
-router.delete("/clientes/:id", deleteCliente);
+router.delete("/clientes/:id", verificarToken, deleteCliente);
 
 export default router;
