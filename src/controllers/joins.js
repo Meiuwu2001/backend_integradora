@@ -86,7 +86,7 @@ export const getHistorialMovimientos = async (req, res) => {
       "SELECT e.numeroEquipo,e.numeroSerie,e.estatus AS estatusEquipo, p.modelo AS modeloProducto, p.categoria AS categoriaProducto,  p.marca AS marcaProducto, mi.tipoMovimiento, mi.cantidad,mi.fechaMovimiento,  ub.nombre AS ubicacionDestino, ub.ciudad, ub.estado, ub.codigoPostal, ub.direccion FROM movimientos_inventario mi INNER JOIN equipos e ON mi.idEquipo = e.idEquipos LEFT JOIN productos p ON e.idProductos = p.idProductos LEFT JOIN ubicaciones ub ON mi.idUbicacion = ub.idUbicaciones WHERE  e.idEquipos = ? ORDER BY  mi.fechaMovimiento DESC",
       [req.params.id]
     );
-    res.json(result);
+    res.json(result[0]);
     await db.end();
   } catch (error) {
     console.error(error);
@@ -101,7 +101,7 @@ export const getTecnicosActivosReportesPendientes = async (req, res) => {
     const [result] = await db.query(
       "SELECT CONCAT(t.Nombre, ' ', t.ApellidoPa) AS nombreTecnico, t.Telefono, r.folioReporte, r.estado, r.fechaCreacion, e.numeroEquipo, e.numeroSerie FROM tecnicos t LEFT JOIN reportes r ON t.idTecnicos = r.tecnicoAsignado LEFT JOIN equipos e ON r.idEquipos = e.idEquipos WHERE  t.Estatus = 'activo' AND r.estado = 'pendiente';"
     );
-    res.json(result);
+    res.json(result[0]);
     await db.end();
   } catch (error) {
     console.error(error);
@@ -171,8 +171,8 @@ export const getClienteById = async (req, res) => {
   const db = await connect();
   try {
     const [result] = await db.query(
-"SELECT c.nombre, c.apellidoPa, c.apellidoMa, c.Telefono, c.CorreoElectronico, u.user From clientes c INNER JOIN users u ON u.idusers = c.users_idusers WHERE c.users_idusers = ?",
-    [req.params.id]
+      "SELECT c.nombre, c.apellidoPa, c.apellidoMa, c.Telefono, c.CorreoElectronico, u.user From clientes c INNER JOIN users u ON u.idusers = c.users_idusers WHERE c.users_idusers = ?",
+      [req.params.id]
     );
     if (!result.length) {
       return res.status(404).json({ error: "Cliente not found" });
