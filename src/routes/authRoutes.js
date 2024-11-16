@@ -7,6 +7,7 @@ import {
   updatePassword,
   DeleteUser,
   getUserById,
+  verificarRol,
 } from "../controllers/authController.js";
 
 const router = express.Router();
@@ -104,10 +105,89 @@ router.get("/perfil", verificarToken, (req, res) => {
   res.json({ mensaje: "Acceso autorizado", usuario: req.usuario });
 });
 
-router.put("/update-password/:id", updatePassword);
+/**
+ * @swagger
+ * /auth/update-password/{id}:
+ *   put:
+ *     summary: Actualiza la contraseña de un usuario
+ *     tags: [Autenticación]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID del usuario.
+ *         schema:
+ *           type: integer
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               password:
+ *                 type: string
+ *                 description: Nueva contraseña del usuario.
+ *     responses:
+ *       200:
+ *         description: Contraseña actualizada con éxito.
+ *       403:
+ *         description: Acceso no autorizado.
+ *       500:
+ *         description: Error al actualizar la contraseña.
+ */
+router.put("/update-password/:id", verificarToken, updatePassword);
 
-router.delete("/delete-user/:id", DeleteUser);
+/**
+ * @swagger
+ * /auth/delete-user/{id}:
+ *   delete:
+ *     summary: Elimina un usuario
+ *     tags: [Autenticación]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID del usuario.
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Usuario eliminado con éxito.
+ *       403:
+ *         description: Acceso no autorizado.
+ *       500:
+ *         description: Error al eliminar el usuario.
+ */
+router.delete("/delete-user/:id", verificarToken, DeleteUser);
 
-router.get("/getUser/:id", getUserById);
+/**
+ * @swagger
+ * /auth/getUser/{id}:
+ *   get:
+ *     summary: Obtiene un usuario por su ID
+ *     tags: [Autenticación]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID del usuario.
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Información del usuario obtenida con éxito.
+ *       403:
+ *         description: Acceso no autorizado.
+ *       500:
+ *         description: Error al obtener el usuario.
+ */
+router.get("/getUser/:id", verificarToken, getUserById);
 
 export default router;

@@ -7,12 +7,30 @@ const swaggerOptions = {
       version: "1.0.0",
       title: "Docu API",
       description: "API Documentation for use",
-      servers: ["http://localhost", "https://backend-integradora.vercel.app"],
-      schemes: -"https" - "http",
     },
+    servers: [
+      { url: "http://localhost", description: "Local development server" },
+      {
+        url: "https://backend-integradora.vercel.app",
+        description: "Production server",
+      },
+    ],
+    components: {
+      securitySchemes: {
+        bearerAuth: {
+          type: "http",
+          scheme: "bearer",
+          bearerFormat: "JWT", // Indica que se usa un token JWT
+        },
+      },
+    },
+    security: [
+      {
+        bearerAuth: [], // Aplica seguridad por defecto a todas las rutas (opcional)
+      },
+    ],
   },
-  basePath: "/",
-  apis: ["src/routes/*.js"],
+  apis: ["src/routes/*.js"], // Ajusta la ruta según tus archivos de rutas
 };
 
 const swaggerSpec = swaggerJSDoc(swaggerOptions);

@@ -58,26 +58,35 @@ export const iniciarSesion = async (req, res) => {
       }
     );
 
-    res.json({ mensaje: "Inicio de sesión exitoso", token, usuario  });
+    res.json({ mensaje: "Inicio de sesión exitoso", token, usuario });
   } catch (error) {
     console.error("Error al iniciar sesión:", error);
     res.status(500).json({ mensaje: "Error al iniciar sesión", error });
   }
 };
 
+export const verificarRol = (rolesPermitidos) => (req, res, next) => {
+  const { rol } = req.usuario; // El rol está en el token decodificado
+  if (!rolesPermitidos.includes(rol)) {
+    return res.status(403).json({ mensaje: "No tienes permisos para acceder" });
+  }
+  next();
+};
+
 // Middleware para verificar token
 export const verificarToken = (req, res, next) => {
-  const token = req.headers["authorization"];
+  const token = req.headers.authorization?.split(" ")[1]; // Extraer el token
 
   if (!token)
     return res.status(403).json({ mensaje: "Token no proporcionado" });
 
-  jwt.verify(token, secret, (err, decoded) => {
-    if (err)
-      return res.status(401).json({ mensaje: "Token inválido o expirado" });
-    req.usuario = decoded;
+  try {
+    const decoded = jwt.verify(token, "clave_secreta"); // Reemplaza 'clave_secreta' con la clave usada para firmar
+    req.usuario = decoded; // Asigna la información decodificada al request
     next();
-  });
+  } catch (err) {
+    return res.status(401).json({ mensaje: "Token inválido o expirado" });
+  }
 };
 
 export const updatePassword = async (req, res) => {
