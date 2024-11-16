@@ -10,6 +10,8 @@ import {
   getReporteClientes,
   getTareasReporte,
   getEquiposUbicacionById,
+  getTecnicoById,
+  getClienteById,
 } from "../controllers/joins.js";
 import { verificarToken } from "../controllers/authController.js";
 
@@ -32,4 +34,8 @@ router.get(
 router.get("/reportesclientes/:id", verificarToken, getReporteClientes);
 router.get("/tareasreportes/:id", verificarToken, getTareasReporte);
 router.get("/equiposenubicacion/:id", verificarToken, getEquiposUbicacionById);
+
+router.get("/clienteById/:id", verificarToken, getClienteById);
+router.get("/tecnicoById/:id", verificarToken, getTecnicoById)
+
 export default router;

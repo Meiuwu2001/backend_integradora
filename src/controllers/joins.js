@@ -68,7 +68,7 @@ export const getReportesAsignados = async (req, res) => {
   const db = await connect();
   try {
     const [result] = await db.query(
-      "SELECT r.IdReporte,r.folioReporte, r.tituloReporte,  r.fechaCreacion,   r.fechaHoraActualizacion as FechaModificacion,  r.estado AS estadoReporte, r.comentarios,  e.estatus AS estadoEquipo,  e.numeroSerie,  e.numeroEquipo,  CONCAT(t.Nombre, ' ', t.ApellidoPa, ' ', t.apellidoMa) AS TecnicoAsignado, CONCAT(c.Nombre, ' ', c.ApellidoPa,' ', c.apellidoMa) AS Cliente, c.Telefono AS telefonoCliente,  c.CorreoElectronico AS correoCliente, u.CodigoPostal, u.Nombre AS nombreUbicacion, u.Direccion FROM  reportes r INNER JOIN equipos e ON r.idEquipos = e.idEquipos INNER JOIN tecnicos t ON r.tecnicoAsignado = t.idTecnicos  INNER JOIN clientes c ON r.creadorReporte = c.idClientes INNER JOIN ubicaciones u ON e.idUbicaciones = u.idUbicaciones;;"
+      "SELECT r.IdReporte,r.folioReporte, r.tituloReporte,  r.fechaCreacion,   r.fechaHoraActualizacion as FechaModificacion,  r.estado AS estadoReporte, r.comentarios,  e.estatus AS estadoEquipo,  e.numeroSerie,  e.numeroEquipo,  CONCAT(t.Nombre, ' ', t.ApellidoPa, ' ', t.apellidoMa) AS TecnicoAsignado, CONCAT(c.Nombre, ' ', c.ApellidoPa,' ', c.apellidoMa) AS Cliente, c.Telefono AS telefonoCliente,  c.CorreoElectronico AS correoCliente, u.CodigoPostal, u.Nombre AS nombreUbicacion, u.Direccion FROM  reportes r INNER JOIN equipos e ON r.idEquipos = e.idEquipos LEFT JOIN tecnicos t ON r.tecnicoAsignado = t.idTecnicos  INNER JOIN clientes c ON r.creadorReporte = c.idClientes INNER JOIN ubicaciones u ON e.idUbicaciones = u.idUbicaciones"
     );
     res.json(result);
     await db.end();
@@ -157,6 +157,44 @@ export const getEquiposUbicacionById = async (req, res) => {
     );
     if (!result.length) {
       return res.status(404).json({ error: "Reporte not found" });
+    }
+    res.json(result[0]);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Server Error");
+  } finally {
+    await db.end();
+  }
+};
+
+export const getClienteById = async (req, res) => {
+  const db = await connect();
+  try {
+    const [result] = await db.query(
+"SELECT c.nombre, c.apellidoPa, c.apellidoMa, c.Telefono, c.CorreoElectronico, u.user From clientes c INNER JOIN users u ON u.idusers = c.users_idusers WHERE c.users_idusers = ?",
+    [req.params.id]
+    );
+    if (!result.length) {
+      return res.status(404).json({ error: "Cliente not found" });
+    }
+    res.json(result[0]);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Server Error");
+  } finally {
+    await db.end();
+  }
+};
+
+export const getTecnicoById = async (req, res) => {
+  const db = await connect();
+  try {
+    const [result] = await db.query(
+      "SELECT t.nombre, t.ApellidoPa, t.ApellidoMa, t.Telefono, t.CorreoElectronico, u.user FROM tecnicos t INNER JOIN users u ON u.idusers = t.users_idusers WHERE t.users_idusers = ?",
+      [req.params.id]
+    );
+    if (!result.length) {
+      return res.status(404).json({ error: "Cliente not found" });
     }
     res.json(result[0]);
   } catch (error) {
