@@ -171,7 +171,7 @@ export const getClienteById = async (req, res) => {
   const db = await connect();
   try {
     const [result] = await db.query(
-      "SELECT c.nombre, c.apellidoPa, c.apellidoMa, c.Telefono, c.CorreoElectronico, u.user From clientes c INNER JOIN users u ON u.idusers = c.users_idusers WHERE c.users_idusers = ?",
+      "SELECT c.idClientes, c.nombre, c.apellidoPa, c.apellidoMa, c.Telefono, c.CorreoElectronico, u.user From clientes c INNER JOIN users u ON u.idusers = c.users_idusers WHERE c.users_idusers = ?",
       [req.params.id]
     );
     if (!result.length) {
@@ -190,7 +190,7 @@ export const getTecnicoById = async (req, res) => {
   const db = await connect();
   try {
     const [result] = await db.query(
-      "SELECT t.nombre, t.ApellidoPa, t.ApellidoMa, t.Telefono, t.CorreoElectronico, u.user FROM tecnicos t INNER JOIN users u ON u.idusers = t.users_idusers WHERE t.users_idusers = ?",
+      "SELECT t.idTecnicos, t.nombre, t.ApellidoPa, t.ApellidoMa, t.Telefono, t.CorreoElectronico, u.user FROM tecnicos t INNER JOIN users u ON u.idusers = t.users_idusers WHERE t.users_idusers = ?",
       [req.params.id]
     );
     if (!result.length) {
