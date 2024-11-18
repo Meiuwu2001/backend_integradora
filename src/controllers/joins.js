@@ -129,7 +129,7 @@ export const getTecnicosActivosReportesPendientes = async (req, res) => {
         .json({ error: "No reports found for this technician" });
     }
 
-    res.json(result[0]);
+    res.json(result);
   } catch (error) {
     console.error(error);
     res.status(500).send("Server Error");
