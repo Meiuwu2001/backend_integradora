@@ -53,7 +53,7 @@ export const getEquipoUbicacion = async (req, res) => {
   const db = await connect();
   try {
     const [result] = await db.query(
-      "SELECT e.idEquipos, p.modelo, p.categoria, p.marca, e.numeroSerie, e.numeroEquipo, e.estatus, ub.nombre, ub.ciudad, ub.estado, ub.codigoPostal, ub.direccion FROM  productos p RIGHT JOIN equipos e ON p.idProductos = e.idProductos  LEFT JOIN ubicaciones ub ON e.idUbicaciones = ub.idUbicaciones"
+      "SELECT e.idEquipos, ub.idUbicaciones p.modelo, p.categoria, p.marca, e.numeroSerie, e.numeroEquipo, e.estatus, ub.nombre, ub.ciudad, ub.estado, ub.codigoPostal, ub.direccion FROM  productos p RIGHT JOIN equipos e ON p.idProductos = e.idProductos  LEFT JOIN ubicaciones ub ON e.idUbicaciones = ub.idUbicaciones"
     );
     res.json(result);
   } catch (error) {
