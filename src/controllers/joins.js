@@ -152,7 +152,7 @@ export const getEquiposUbicacionById = async (req, res) => {
   const db = await connect();
   try {
     const [result] = await db.query(
-      "SELECT   e.numeroEquipo, e.numeroSerie, e.estatus AS estatusEquipo,p.modelo,p.categoria,p.marca,ub.nombre AS nombreUbicacion,ub.ciudad,ub.estado,ub.codigoPostal,  ub.direccion FROM equipos e LEFT JOIN productos p ON e.idProductos = p.idProductos LEFT JOIN ubicaciones ub ON e.idUbicaciones = ub.idUbicaciones WHERE ub.idUbicaciones = ?;",
+      "SELECT e.idEquipos,  e.numeroEquipo, e.numeroSerie, e.estatus AS estatusEquipo,p.modelo,p.categoria,p.marca,ub.nombre AS nombreUbicacion,ub.ciudad,ub.estado,ub.codigoPostal,  ub.direccion FROM equipos e LEFT JOIN productos p ON e.idProductos = p.idProductos LEFT JOIN ubicaciones ub ON e.idUbicaciones = ub.idUbicaciones WHERE ub.idUbicaciones = ?;",
       [req.params.id]
     );
     if (!result.length) {
