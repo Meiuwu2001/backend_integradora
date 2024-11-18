@@ -27,7 +27,7 @@ router.get(
   getHistorialMovimientos
 );
 router.get(
-  "/tecnicosactivosreportespendientes/:id",
+  "/tecnicosreportes/:id",
   verificarToken,
   getTecnicosActivosReportesPendientes
 );
