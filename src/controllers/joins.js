@@ -99,13 +99,41 @@ export const getTecnicosActivosReportesPendientes = async (req, res) => {
   const db = await connect();
   try {
     const [result] = await db.query(
-      "SELECT CONCAT(t.Nombre, ' ', t.ApellidoPa) AS nombreTecnico, t.Telefono, r.folioReporte, r.estado, r.fechaCreacion, e.numeroEquipo, e.numeroSerie FROM tecnicos t LEFT JOIN reportes r ON t.idTecnicos = r.tecnicoAsignado LEFT JOIN equipos e ON r.idEquipos = e.idEquipos WHERE t.idTecnicos =?;"
+      `SELECT 
+        CONCAT(t.Nombre, ' ', t.ApellidoPa, ' ', t.ApellidoMa) AS nombreTecnico,
+        t.Telefono,
+        r.folioReporte,
+        r.fechaCreacion,
+        r.fechaHoraActualizacion AS fechaModificacion,
+        r.estado,
+        r.comentarios,
+        e.numeroEquipo,
+        e.numeroSerie,
+        CONCAT(c.Nombre, ' ', c.ApellidoPa, ' ', c.ApellidoMa) AS creadorReporte
+      FROM 
+        tecnicos t
+      LEFT JOIN 
+        reportes r ON t.idTecnicos = r.tecnicoAsignado
+      LEFT JOIN 
+        equipos e ON r.idEquipos = e.idEquipos
+      LEFT JOIN 
+        clientes c ON r.creadorReporte = c.idClientes
+      WHERE 
+        t.idTecnicos = ?;`,
+      [req.params.id]
     );
+
+    if (!result.length) {
+      return res
+        .status(404)
+        .json({ error: "No reports found for this technician" });
+    }
+
     res.json(result[0]);
-    await db.end();
   } catch (error) {
     console.error(error);
     res.status(500).send("Server Error");
+  } finally {
     await db.end();
   }
 };
@@ -114,7 +142,14 @@ export const getReporteClientes = async (req, res) => {
   const db = await connect();
   try {
     const [result] = await db.query(
-      "SELECT   r.folioReporte, r.fechaCreacion, r.fechaHoraActualizacion AS fechaModificacion,  r.estado, r.comentarios, CONCAT(c.Nombre, ' ', c.ApellidoPa, ' ', c.ApellidoMa) AS nombreCliente, e.numeroEquipo, e.numeroSerie, CONCAT(t.Nombre, ' ', t.ApellidoPa,' ', t.ApellidoMa) AS tecnicoAsignado FROM  reportes r INNER JOIN clientes c ON r.creadorReporte = c.idClientes LEFT JOIN equipos e ON r.idEquipos = e.idEquipos  LEFT JOIN tecnicos t ON r.tecnicoAsignado = t.idTecnicos WHERE c.idClientes = ?;",
+      `SELECT
+       r.folioReporte, r.fechaCreacion, r.fechaHoraActualizacion AS fechaModificacion,  r.estado, r.comentarios,
+        CONCAT(c.Nombre, ' ', c.ApellidoPa, ' ', c.ApellidoMa) AS nombreCliente,
+         e.numeroEquipo, e.numeroSerie, CONCAT(t.Nombre, ' ', t.ApellidoPa,' ', t.ApellidoMa) AS tecnicoAsignado
+          FROM 
+           reportes r INNER JOIN clientes c ON r.creadorReporte = c.idClientes 
+           LEFT JOIN equipos e ON r.idEquipos = e.idEquipos  LEFT JOIN tecnicos t ON r.tecnicoAsignado = t.idTecnicos
+            WHERE c.idClientes = ?`,
       [req.params.id]
     );
     if (!result.length) {
