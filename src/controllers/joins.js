@@ -155,7 +155,7 @@ export const getReporteClientes = async (req, res) => {
     if (!result.length) {
       return res.status(404).json({ error: "Reporte not found" });
     }
-    res.json(result[0]);
+    res.json(result);
   } catch (error) {
     console.error(error);
     res.status(500).send("Server Error");
