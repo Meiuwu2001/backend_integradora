@@ -68,7 +68,7 @@ export const getReportesAsignados = async (req, res) => {
   const db = await connect();
   try {
     const [result] = await db.query(
-      "SELECT r.IdReporte,r.folioReporte, r.tituloReporte,  r.fechaCreacion,  r.fechaHoraActualizacion as FechaModificacion,  r.estado, r.comentarios,  e.estatus AS estadoEquipo,  e.numeroSerie,  e.numeroEquipo,  CONCAT(t.Nombre, ' ', t.ApellidoPa, ' ', t.apellidoMa) AS TecnicoAsignado, CONCAT(c.Nombre, ' ', c.ApellidoPa,' ', c.apellidoMa) AS Cliente, c.Telefono AS telefonoCliente,  c.CorreoElectronico AS correoCliente, u.CodigoPostal, u.Nombre AS nombreUbicacion, u.Direccion FROM  reportes r INNER JOIN equipos e ON r.idEquipos = e.idEquipos LEFT JOIN tecnicos t ON r.tecnicoAsignado = t.idTecnicos  INNER JOIN clientes c ON r.creadorReporte = c.idClientes INNER JOIN ubicaciones u ON e.idUbicaciones = u.idUbicaciones"
+      "SELECT r.IdReporte,r.folioReporte, r.tituloReporte,  r.fechaCreacion,  r.fechaHoraActualizacion as FechaModificacion,  r.estado, r.comentarios, r.ComentariosFinales,  e.estatus AS estadoEquipo,  e.numeroSerie,  e.numeroEquipo,  CONCAT(t.Nombre, ' ', t.ApellidoPa, ' ', t.apellidoMa) AS TecnicoAsignado, CONCAT(c.Nombre, ' ', c.ApellidoPa,' ', c.apellidoMa) AS Cliente, c.Telefono AS telefonoCliente,  c.CorreoElectronico AS correoCliente, u.CodigoPostal, u.Nombre AS nombreUbicacion, u.Direccion FROM  reportes r INNER JOIN equipos e ON r.idEquipos = e.idEquipos LEFT JOIN tecnicos t ON r.tecnicoAsignado = t.idTecnicos  INNER JOIN clientes c ON r.creadorReporte = c.idClientes INNER JOIN ubicaciones u ON e.idUbicaciones = u.idUbicaciones"
     );
     res.json(result);
     await db.end();
@@ -106,7 +106,7 @@ export const getTecnicosActivosReportesPendientes = async (req, res) => {
         r.fechaCreacion,
         r.fechaHoraActualizacion AS fechaModificacion,
         r.estado,
-        r.comentarios,
+        r.comentarios, r.ComentariosFinales,
         e.numeroEquipo,
         e.numeroSerie,
         CONCAT(c.Nombre, ' ', c.ApellidoPa, ' ', c.ApellidoMa) AS creadorReporte
@@ -143,7 +143,7 @@ export const getReporteClientes = async (req, res) => {
   try {
     const [result] = await db.query(
       `SELECT
-       r.folioReporte, r.fechaCreacion, r.fechaHoraActualizacion AS fechaModificacion,  r.estado, r.comentarios,
+       r.titiloReporte, r.folioReporte, r.fechaCreacion, r.fechaHoraActualizacion AS fechaModificacion,  r.estado, r.comentarios, r.ComentariosFinales,
         CONCAT(c.Nombre, ' ', c.ApellidoPa, ' ', c.ApellidoMa) AS nombreCliente,
          e.numeroEquipo, e.numeroSerie, CONCAT(t.Nombre, ' ', t.ApellidoPa,' ', t.ApellidoMa) AS tecnicoAsignado
           FROM 
