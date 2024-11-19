@@ -34,7 +34,7 @@ export const getReporteTareas = async (req, res) => {
   const db = await connect();
   try {
     const [result] = await db.query(
-      "SELECT tk.Titulo, tk.Descripcion, tk.Observaciones, tk.estatus, r.folioReporte, r.fechaHoraActualizacion AS FechaModificacion FROM tareas tk RIGHT JOIN reportes r ON r.idReporte = tk.idReportes WHERE r.idReporte = ?",
+      "SELECT tk.Titulo, tk.Descripcion, tk.Observaciones, tk.estatus, r.folioReporte, r.tituloReporte, r.fechaHoraActualizacion AS FechaModificacion FROM tareas tk RIGHT JOIN reportes r ON r.idReporte = tk.idReportes WHERE r.idReporte = ?",
       [req.params.id]
     );
     if (!result.length) {
@@ -68,7 +68,7 @@ export const getReportesAsignados = async (req, res) => {
   const db = await connect();
   try {
     const [result] = await db.query(
-      "SELECT r.IdReporte,r.folioReporte, r.tituloReporte,  r.fechaCreacion,  r.fechaHoraActualizacion as FechaModificacion,  r.estado, r.comentarios, r.ComentariosFinales,  e.estatus AS estadoEquipo,  e.numeroSerie,  e.numeroEquipo,  CONCAT(t.Nombre, ' ', t.ApellidoPa, ' ', t.apellidoMa) AS TecnicoAsignado, CONCAT(c.Nombre, ' ', c.ApellidoPa,' ', c.apellidoMa) AS Cliente, c.Telefono AS telefonoCliente,  c.CorreoElectronico AS correoCliente, u.CodigoPostal, u.Nombre AS nombreUbicacion, u.Direccion FROM  reportes r INNER JOIN equipos e ON r.idEquipos = e.idEquipos LEFT JOIN tecnicos t ON r.tecnicoAsignado = t.idTecnicos  INNER JOIN clientes c ON r.creadorReporte = c.idClientes INNER JOIN ubicaciones u ON e.idUbicaciones = u.idUbicaciones"
+      "SELECT r.IdReporte,r.folioReporte, r.tituloReporte, r.tituloReporte,  r.fechaCreacion,  r.fechaHoraActualizacion as FechaModificacion,  r.estado, r.comentarios, r.ComentariosFinales,  e.estatus AS estadoEquipo,  e.numeroSerie,  e.numeroEquipo,  CONCAT(t.Nombre, ' ', t.ApellidoPa, ' ', t.apellidoMa) AS TecnicoAsignado, CONCAT(c.Nombre, ' ', c.ApellidoPa,' ', c.apellidoMa) AS Cliente, c.Telefono AS telefonoCliente,  c.CorreoElectronico AS correoCliente, u.CodigoPostal, u.Nombre AS nombreUbicacion, u.Direccion FROM  reportes r INNER JOIN equipos e ON r.idEquipos = e.idEquipos LEFT JOIN tecnicos t ON r.tecnicoAsignado = t.idTecnicos  INNER JOIN clientes c ON r.creadorReporte = c.idClientes INNER JOIN ubicaciones u ON e.idUbicaciones = u.idUbicaciones"
     );
     res.json(result);
     await db.end();
@@ -102,6 +102,7 @@ export const getTecnicosActivosReportesPendientes = async (req, res) => {
       `SELECT 
         CONCAT(t.Nombre, ' ', t.ApellidoPa, ' ', t.ApellidoMa) AS nombreTecnico,
         t.Telefono,
+        r.tituloReporte,
         r.folioReporte,
         r.fechaCreacion,
         r.fechaHoraActualizacion AS fechaModificacion,
@@ -143,7 +144,7 @@ export const getReporteClientes = async (req, res) => {
   try {
     const [result] = await db.query(
       `SELECT
-       r.titiloReporte, r.folioReporte, r.fechaCreacion, r.fechaHoraActualizacion AS fechaModificacion,  r.estado, r.comentarios, r.ComentariosFinales,
+       r.tituloReporte, r.folioReporte, r.fechaCreacion, r.fechaHoraActualizacion AS fechaModificacion,  r.estado, r.comentarios, r.ComentariosFinales,
         CONCAT(c.Nombre, ' ', c.ApellidoPa, ' ', c.ApellidoMa) AS nombreCliente,
          e.numeroEquipo, e.numeroSerie, CONCAT(t.Nombre, ' ', t.ApellidoPa,' ', t.ApellidoMa) AS tecnicoAsignado
           FROM 
@@ -168,7 +169,7 @@ export const getTareasReporte = async (req, res) => {
   const db = await connect();
   try {
     const [result] = await db.query(
-      "SELECT tk.Titulo, tk.Descripcion,tk.Observaciones,tk.estatus AS estatusTarea, r.folioReporte,r.fechaCreacion, r.fechaHoraActualizacion AS fechaModificacion,CONCAT(c.Nombre, ' ', c.ApellidoPa) AS nombreCliente,CONCAT(t.Nombre, ' ', t.ApellidoPa) AS tecnicoAsignado FROM  tareas tk INNER JOIN reportes r ON tk.idReportes = r.idReporte LEFT JOIN clientes c ON r.creadorReporte = c.idClientes LEFT JOIN tecnicos t ON r.tecnicoAsignado = t.idTecnicos WHERE r.idReporte = ?;",
+      "SELECT tk.Titulo, tk.Descripcion,tk.Observaciones,tk.estatus AS estatusTarea, r.folioReporte, r.tituloReporte,r.fechaCreacion, r.fechaHoraActualizacion AS fechaModificacion,CONCAT(c.Nombre, ' ', c.ApellidoPa) AS nombreCliente,CONCAT(t.Nombre, ' ', t.ApellidoPa) AS tecnicoAsignado FROM  tareas tk INNER JOIN reportes r ON tk.idReportes = r.idReporte LEFT JOIN clientes c ON r.creadorReporte = c.idClientes LEFT JOIN tecnicos t ON r.tecnicoAsignado = t.idTecnicos WHERE r.idReporte = ?;",
       [req.params.id]
     );
     if (!result.length) {
