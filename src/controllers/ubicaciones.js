@@ -3,7 +3,13 @@ import connect from "../config/db.js";
 export const getUbicacion = async (req, res) => {
   try {
     const db = await connect();
-    const [result] = await db.query("SELECT * FROM ubicaciones;");
+    const [result] = await db.query(
+      `SELECT 
+  ubicaciones.*, 
+  CONCAT(c.Nombre, ' ', c.ApellidoPa, ' ', c.ApellidoMa) AS Cliente
+FROM ubicaciones
+LEFT JOIN clientes c ON c.idClientes = ubicaciones.clientes_idClientes;`
+    );
     res.json(result);
   } catch (error) {
     console.error(error);
