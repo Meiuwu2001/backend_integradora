@@ -107,6 +107,7 @@ export const getTecnicosActivosReportesPendientes = async (req, res) => {
         r.fechaCreacion,
         r.fechaHoraActualizacion AS fechaModificacion,
         r.estado,
+        r.IdReporte,
         r.comentarios, r.ComentariosFinales,
         e.numeroEquipo,
         e.numeroSerie,
@@ -147,7 +148,7 @@ export const getReporteClientes = async (req, res) => {
   try {
     const [result] = await db.query(
       `SELECT
-       r.tituloReporte, r.folioReporte, r.fechaCreacion, r.fechaHoraActualizacion AS fechaModificacion,  r.estado, r.comentarios, r.ComentariosFinales,
+       r.IdReporte, r.tituloReporte, r.folioReporte, r.fechaCreacion, r.fechaHoraActualizacion AS fechaModificacion,  r.estado, r.comentarios, r.ComentariosFinales,
         CONCAT(c.Nombre, ' ', c.ApellidoPa, ' ', c.ApellidoMa) AS nombreCliente,
          e.numeroEquipo, e.numeroSerie, CONCAT(t.Nombre, ' ', t.ApellidoPa,' ', t.ApellidoMa) AS tecnicoAsignado, u.nombre
           FROM 
