@@ -225,6 +225,7 @@ export const getTecnicosActivosReportesPendientes = async (req, res) => {
           r.ComentariosFinales,
           e.numeroEquipo,
           e.numeroSerie,
+          c.Telefono as telefonoCliente,
           CONCAT(c.Nombre, ' ', c.ApellidoPa, ' ', c.ApellidoMa) AS creadorReporte,
           u.nombre AS ubicacion
       FROM 
