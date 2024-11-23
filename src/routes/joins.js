@@ -12,6 +12,7 @@ import {
   getEquiposUbicacionById,
   getTecnicoById,
   getClienteById,
+  ClienteEquipoUbicacion,
 } from "../controllers/joins.js";
 import { verificarToken } from "../controllers/authController.js";
 
@@ -20,7 +21,7 @@ router.get("/clienteusuarios", verificarToken, getClienteUsuario);
 router.get("/tecnicosusuarios", verificarToken, getTecnicosUsuarios);
 router.get("/reportetareas/:id", verificarToken, getReporteTareas);
 router.get("/equipoubicacion", verificarToken, getEquipoUbicacion);
-router.get("/reportesCreados",verificarToken, getReportesAsignados);
+router.get("/reportesCreados", verificarToken, getReportesAsignados);
 router.get(
   "/historialmovimientos/:id",
   verificarToken,
@@ -36,6 +37,8 @@ router.get("/tareasreportes/:id", verificarToken, getTareasReporte);
 router.get("/equiposenubicacion/:id", verificarToken, getEquiposUbicacionById);
 
 router.get("/clienteById/:id", verificarToken, getClienteById);
-router.get("/tecnicoById/:id", verificarToken, getTecnicoById)
+router.get("/tecnicoById/:id", verificarToken, getTecnicoById);
+
+router.get("/ClienteEquipoUbicacion/:id", verificarToken, ClienteEquipoUbicacion);
 
 export default router;

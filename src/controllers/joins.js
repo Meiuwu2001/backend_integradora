@@ -461,3 +461,49 @@ export const getTecnicoById = async (req, res) => {
     await db.end();
   }
 };
+
+export const ClienteEquipoUbicacion = async (req, res) => {
+  const db = await connect();
+  try {
+    const [result] = await db.query(
+      `
+       SELECT 
+          e.idEquipos,  
+          e.numeroEquipo, 
+          e.numeroSerie, 
+          e.estatus AS estatusEquipo,
+          p.modelo,
+          p.categoria,
+          p.marca,
+          ub.nombre AS nombreUbicacion,
+          ub.ciudad,
+          ub.estado,
+          ub.codigoPostal,
+          ub.direccion,
+          ub.idUbicaciones
+      FROM 
+          equipos e 
+      LEFT JOIN 
+          productos p ON e.idProductos = p.idProductos 
+      LEFT JOIN 
+          ubicaciones ub ON e.idUbicaciones = ub.idUbicaciones 
+      INNER JOIN clientes c ON c.idClientes = ub.clientes_idClientes
+      WHERE 
+          c.idClientes = ?
+    `,
+      [req.params.id]
+    );
+
+    if (!result.length) {
+      return res
+        .status(404)
+        .json({ error: "Equipos not found for this location" });
+    }
+    res.json(result);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Server Error");
+  } finally {
+    await db.end();
+  }
+};
