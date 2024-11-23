@@ -149,9 +149,9 @@ export const getReporteClientes = async (req, res) => {
       `SELECT
        r.tituloReporte, r.folioReporte, r.fechaCreacion, r.fechaHoraActualizacion AS fechaModificacion,  r.estado, r.comentarios, r.ComentariosFinales,
         CONCAT(c.Nombre, ' ', c.ApellidoPa, ' ', c.ApellidoMa) AS nombreCliente,
-         e.numeroEquipo, e.numeroSerie, CONCAT(t.Nombre, ' ', t.ApellidoPa,' ', t.ApellidoMa) AS tecnicoAsignado
+         e.numeroEquipo, e.numeroSerie, CONCAT(t.Nombre, ' ', t.ApellidoPa,' ', t.ApellidoMa) AS tecnicoAsignado, u.nombre
           FROM 
-           reportes r INNER JOIN clientes c ON r.creadorReporte = c.idClientes ,  u.nombre
+           reportes r INNER JOIN clientes c ON r.creadorReporte = c.idClientes ,  
            LEFT JOIN equipos e ON r.idEquipos = e.idEquipos  LEFT JOIN tecnicos t ON r.tecnicoAsignado = t.idTecnicos
             LEFT JOIN
         ubicaciones u ON u.idUbicaciones = e.idUbicaciones
