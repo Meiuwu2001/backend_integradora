@@ -110,7 +110,8 @@ export const getTecnicosActivosReportesPendientes = async (req, res) => {
         r.comentarios, r.ComentariosFinales,
         e.numeroEquipo,
         e.numeroSerie,
-        CONCAT(c.Nombre, ' ', c.ApellidoPa, ' ', c.ApellidoMa) AS creadorReporte
+        CONCAT(c.Nombre, ' ', c.ApellidoPa, ' ', c.ApellidoMa) AS creadorReporte,
+        u.nombre
       FROM 
         tecnicos t
       LEFT JOIN 
@@ -119,6 +120,8 @@ export const getTecnicosActivosReportesPendientes = async (req, res) => {
         equipos e ON r.idEquipos = e.idEquipos
       LEFT JOIN 
         clientes c ON r.creadorReporte = c.idClientes
+      LEFT JOIN
+        ubicaciones u ON u.idUbicaciones = e.idUbicaciones
       WHERE 
         t.idTecnicos = ?;`,
       [req.params.id]
@@ -148,8 +151,10 @@ export const getReporteClientes = async (req, res) => {
         CONCAT(c.Nombre, ' ', c.ApellidoPa, ' ', c.ApellidoMa) AS nombreCliente,
          e.numeroEquipo, e.numeroSerie, CONCAT(t.Nombre, ' ', t.ApellidoPa,' ', t.ApellidoMa) AS tecnicoAsignado
           FROM 
-           reportes r INNER JOIN clientes c ON r.creadorReporte = c.idClientes 
+           reportes r INNER JOIN clientes c ON r.creadorReporte = c.idClientes ,  u.nombre
            LEFT JOIN equipos e ON r.idEquipos = e.idEquipos  LEFT JOIN tecnicos t ON r.tecnicoAsignado = t.idTecnicos
+            LEFT JOIN
+        ubicaciones u ON u.idUbicaciones = e.idUbicaciones
             WHERE c.idClientes = ?`,
       [req.params.id]
     );
