@@ -4,7 +4,7 @@ import connect from "../config/db.js";
 export const getReporte = async (req, res) => {
   try {
     const db = await connect();
-    const [result] = await db.query("SELECT * FROM reportes;");
+    const [result] = await db.query("SELECT * FROM reportes ORDER BY fechaCreacion DESC;");
     res.json(result);
     await db.end();
   } catch (error) {

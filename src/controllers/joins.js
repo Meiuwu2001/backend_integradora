@@ -70,6 +70,7 @@ export const getReporteTareas = async (req, res) => {
           reportes r ON r.idReporte = tk.idReportes 
       WHERE 
           r.idReporte = ?
+      ORDER BY r.fechaCreacion DESC
     `,
       [req.params.id]
     );
@@ -153,6 +154,7 @@ export const getReportesAsignados = async (req, res) => {
           clientes c ON r.creadorReporte = c.idClientes 
       INNER JOIN 
           ubicaciones u ON e.idUbicaciones = u.idUbicaciones
+      ORDER BY r.fechaCreacion DESC;
     `);
     res.json(result);
   } catch (error) {
@@ -240,6 +242,7 @@ export const getTecnicosActivosReportesPendientes = async (req, res) => {
           ubicaciones u ON u.idUbicaciones = e.idUbicaciones
       WHERE 
           t.idTecnicos = ?
+      ORDER BY r.fechaCreacion DESC
     `,
       [req.params.id]
     );
@@ -290,6 +293,7 @@ export const getReporteClientes = async (req, res) => {
           ubicaciones u ON u.idUbicaciones = e.idUbicaciones
       WHERE 
           c.idClientes = ?
+      ORDER BY r.fechaCreacion DESC
     `,
       [req.params.id]
     );
@@ -332,6 +336,7 @@ export const getTareasReporte = async (req, res) => {
           tecnicos t ON r.tecnicoAsignado = t.idTecnicos 
       WHERE 
           r.idReporte = ?
+      ORDER BY r.fechaCreacion DESC
     `,
       [req.params.id]
     );
