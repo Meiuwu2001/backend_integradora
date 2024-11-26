@@ -480,10 +480,26 @@ export const ClienteEquipoUbicacion = async (req, res) => {
     const [result] = await db.query(
       `
      SELECT 
-        ubicaciones.*, 
-           CONCAT(c.Nombre, ' ', c.ApellidoPa, ' ', c.ApellidoMa) AS Cliente
-          FROM ubicaciones
-          LEFT JOIN clientes c ON c.idClientes = ubicaciones.clientes_idClientes
+          e.idEquipos,  
+          e.numeroEquipo, 
+          e.numeroSerie, 
+          e.estatus AS estatusEquipo,
+          p.modelo,
+          p.categoria,
+          p.marca,
+          ub.nombre AS nombreUbicacion,
+          ub.ciudad,
+          ub.estado,
+          ub.codigoPostal,
+          ub.direccion,
+          ub.idUbicaciones
+      FROM 
+          equipos e 
+      LEFT JOIN 
+          productos p ON e.idProductos = p.idProductos 
+      LEFT JOIN 
+          ubicaciones ub ON e.idUbicaciones = ub.idUbicaciones 
+      INNER JOIN clientes c ON c.idClientes = ub.clientes_idClientes
       WHERE 
           c.idClientes = ?
     `,
