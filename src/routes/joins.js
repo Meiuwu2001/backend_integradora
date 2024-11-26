@@ -42,6 +42,8 @@ router.get("/tecnicoById/:id", verificarToken, getTecnicoById);
 
 router.get("/ClienteEquipoUbicacion/:id", verificarToken, ClienteEquipoUbicacion);
 
+router.get("/ubicacionCliente/:id", verificarToken, ubicacionCliente);
+
 router.get("/equipobyiduser/:id", verificarToken, EquipoById);
 
 

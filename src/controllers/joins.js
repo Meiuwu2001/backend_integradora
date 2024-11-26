@@ -479,15 +479,37 @@ export const ClienteEquipoUbicacion = async (req, res) => {
   try {
     const [result] = await db.query(
       `
+     SELECT 
+        ubicaciones.*, 
+           CONCAT(c.Nombre, ' ', c.ApellidoPa, ' ', c.ApellidoMa) AS Cliente
+          FROM ubicaciones
+          LEFT JOIN clientes c ON c.idClientes = ubicaciones.clientes_idClientes
+      WHERE 
+          c.idClientes = ?
+    `,
+      [req.params.id]
+    );
+
+    if (!result.length) {
+      return res
+        .status(404)
+        .json({ error: "Equipos not found for this location" });
+    }
+    res.json(result);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Server Error");
+  } finally {
+    await db.end();
+  }
+};
+export const ubicacionCliente = async (req, res) => {
+  const db = await connect();
+  try {
+    const [result] = await db.query(
+      `
        SELECT 
-          e.idEquipos,  
-          e.numeroEquipo, 
-          e.numeroSerie, 
-          e.estatus AS estatusEquipo,
-          p.modelo,
-          p.categoria,
-          p.marca,
-          ub.nombre AS nombreUbicacion,
+          ub.nombre,
           ub.ciudad,
           ub.estado,
           ub.codigoPostal,
@@ -519,6 +541,7 @@ export const ClienteEquipoUbicacion = async (req, res) => {
     await db.end();
   }
 };
+
 export const EquipoById = async (req, res) => {
   const db = await connect();
   try {
