@@ -143,7 +143,8 @@ export const getReportesAsignados = async (req, res) => {
           c.CorreoElectronico AS correoCliente, 
           u.CodigoPostal, 
           u.Nombre AS nombreUbicacion, 
-          u.Direccion 
+          u.Direccion,
+          u.CodigoPostal
       FROM 
           reportes r 
       INNER JOIN 
@@ -229,7 +230,9 @@ export const getTecnicosActivosReportesPendientes = async (req, res) => {
           e.numeroSerie,
           c.Telefono as telefonoCliente,
           CONCAT(c.Nombre, ' ', c.ApellidoPa, ' ', c.ApellidoMa) AS creadorReporte,
-          u.nombre AS ubicacion
+          u.nombre AS ubicacion,
+          u.Direccion,
+          u.CodigoPostal
       FROM 
           tecnicos t
       LEFT JOIN 
@@ -280,7 +283,9 @@ export const getReporteClientes = async (req, res) => {
           e.numeroEquipo, 
           e.numeroSerie, 
           CONCAT(t.Nombre, ' ', t.ApellidoPa, ' ', t.ApellidoMa) AS tecnicoAsignado, 
-          u.nombre AS ubicacion
+          u.nombre AS ubicacion,
+          u.Direccion,
+          u.CodigoPostal
       FROM 
           reportes r 
       INNER JOIN 
