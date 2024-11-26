@@ -285,7 +285,9 @@ export const getReporteClientes = async (req, res) => {
           CONCAT(t.Nombre, ' ', t.ApellidoPa, ' ', t.ApellidoMa) AS tecnicoAsignado, 
           u.nombre AS ubicacion,
           u.Direccion,
-          u.CodigoPostal
+          u.CodigoPostal,
+          u.Estado,
+          u.Ciudad
       FROM 
           reportes r 
       INNER JOIN 
