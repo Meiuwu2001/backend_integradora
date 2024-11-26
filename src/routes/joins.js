@@ -14,6 +14,7 @@ import {
   getClienteById,
   ClienteEquipoUbicacion,
   EquipoById,
+  ubicacionCliente,
 } from "../controllers/joins.js";
 import { verificarToken } from "../controllers/authController.js";
 
