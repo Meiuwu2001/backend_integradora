@@ -25,7 +25,6 @@ app.use(
     origin: "*", // Allows all domains - adjust for production
   })
 );
-
 // API routes
 app.use("/api", contactUs);
 app.use("/api", clientes);
